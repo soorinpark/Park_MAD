@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var logo: UIImageView!
     
     @IBAction func rickButton(sender: UIButton) {
         
@@ -24,6 +25,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        //imageView.image=UIImage(named: "morty")
+        //logo.image=UIImage(named: "rick_and_morty")
+
     }
 
     override func didReceiveMemoryWarning() {
