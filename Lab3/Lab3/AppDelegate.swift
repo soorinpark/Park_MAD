@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Project1_TreeFiddy
+//  Lab3
 //
-//  Created by Soo Rin Park on 9/19/16.
+//  Created by Soo Rin Park on 9/20/16.
 //  Copyright © 2016 Soo Rin Park. All rights reserved.
 //
 
@@ -16,16 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
-        
-        var navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.shadowImage = UIImage()
-        navigationBarAppearace.setBackgroundImage(UIImage(), forBarMetrics: .Default)
-        navigationBarAppearace.backgroundColor = UIColor.whiteColor()
-        navigationBarAppearace.tintColor = UIColor(red: 242/255, green: 199/255, blue: 198/255, alpha: 1)
-        navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.darkGrayColor(), NSFontAttributeName: UIFont(name: "KannadaSangamMN", size: CGFloat(18))!]
-
-        
         return true
     }
 
