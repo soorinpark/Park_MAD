@@ -23,7 +23,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     let typeData = ["Income", "Bills", "Expenses"]
     let freqData = ["week", "bi-week", "month", "bi-month", "6 months", "year"]
     
-    var data: [String]?
+    //var data: [String]?
+    var item: Data?
     
     override func viewDidLoad() {
 
@@ -189,7 +190,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 newAmount = amount2!/12
             }
             
-            data = [type, name, String(newAmount)]
+            
+            item = Data(type: type, name: name, amount: newAmount)
+            //data = [type, name, String(newAmount)]
             
         }
     }

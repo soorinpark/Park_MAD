@@ -56,7 +56,7 @@
                                         <color key="textColor" red="0.22189954188481675" green="0.22189954188481675" blue="0.22189954188481675" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="burger" translatesAutoresizingMaskIntoConstraints="NO" id="yBm-Yg-IhT">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="burger" translatesAutoresizingMaskIntoConstraints="NO" id="yBm-Yg-IhT">
                                         <rect key="frame" x="66" y="156" width="128" height="128"/>
                                     </imageView>
                                 </subviews>

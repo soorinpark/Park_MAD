@@ -19,11 +19,33 @@ class TableViewController: UITableViewController {
     @IBOutlet weak var expenseTotal: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     
+    var data: [[Data]] = [[],[],[]]
+    
+    var incomeNum: Int = 0
+    var expenseNum: Int = 0
+    var billsNum: Int = 0
+    
     override func viewDidLoad() {
+        
+        do {
+            try NSFileManager.defaultManager().removeItemAtPath(Data.ArchiveURL.path!)
+        } catch {
+            
+        }
         
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
         super.viewDidLoad()
+        
+        /*
+        if let savedData = loadData() {
+            data += savedData
+        } else {
+            // Load the sample data.
+            loadData()
+        }
+         */
+        
         
     }
 
@@ -33,12 +55,23 @@ class TableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return items.count
+        return sectionTitles.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return items[section].count
+        
+        if (section == 0) {
+            return incomeNum
+        }
+        else if (section == 1) {
+            return billsNum
+        }
+        
+        else {
+            return expenseNum
+        }
+        
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -54,15 +87,26 @@ class TableViewController: UITableViewController {
         
         let cellIdentifier = "tableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! TableViewCell
-        let data = items[indexPath.section][indexPath.row]
-        let dataArr = data.characters.split{$0 == "-"}.map(String.init)
+        //let data = items[indexPath.section][indexPath.row]
+        //let dataArr = data.characters.split{$0 == "-"}.map(String.init)
         
-        cell.label.text = dataArr[0]
+        let item = data[indexPath.section][indexPath.row]
+        
+        //cell.label.text = dataArr[0]
         
         let currencyFormatter = NSNumberFormatter()
         currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
         
+        cell.label.text = item.name
+        cell.cellAmount.text = currencyFormatter.stringFromNumber(Int(item.amount))
+        
+        
+        /*
+        let currencyFormatter = NSNumberFormatter()
+        currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
+        
         cell.cellAmount.text = currencyFormatter.stringFromNumber(Int(dataArr[1])!)
+         */
 
         return cell
     }
@@ -77,23 +121,76 @@ class TableViewController: UITableViewController {
     }
     
     @IBAction func addToTable(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? ViewController, data = sourceViewController.data {
+        if let sourceViewController = sender.sourceViewController as? ViewController, item = sourceViewController.item {
             // Add a new meal item.
-            var newIndex = 0
-            var newData = ""
+            //var newIndex = 0
+            //var newData = ""
             
-            if (data[0] == "Income") {
+            print(item.name)
+            print(item.type)
+            print(item.amount)
+            
+            var sectionNum: Int = 0
+            
+            var newIndexPath = NSIndexPath(forRow:0, inSection: 0)
+            
+            if (item.type == "Income") {
                 
-                newData = data[1] + "-" + data[2]
+                sectionNum = 0
+                income += item.amount
+                incomeNum += 1
+                newIndexPath = NSIndexPath(forRow: incomeNum-1, inSection: sectionNum)
+
+            }
+            
+            else if (item.type == "Bills") {
+                sectionNum = 1
+                expense += item.amount
+                billsNum += 1
+                newIndexPath = NSIndexPath(forRow: billsNum-1, inSection: sectionNum)
+
+            }
+            
+            else if (item.type == "Expenses") {
+            
+                sectionNum = 2
+                expense += item.amount
+                expenseNum += 1
+                newIndexPath = NSIndexPath(forRow: expenseNum-1, inSection: sectionNum)
+
+            }
+            
+            let total: Int = income - expense
+            
+            data[sectionNum].append(item)
+            print(data)
+
+            tableView.beginUpdates()
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+            tableView.endUpdates()
+            
+            let currencyFormatter = NSNumberFormatter()
+            currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
+            
+            incomeTotal.text = currencyFormatter.stringFromNumber(income)
+            expenseTotal.text = currencyFormatter.stringFromNumber(expense)
+            totalLabel.text = currencyFormatter.stringFromNumber(total)
+ 
+
+ 
+            /*
+            if (item[0] == "Income") {
+                
+                newData = item[1] + "-" + data[2]
                 items[0].append(newData)
                 newIndex = 0
                 income += Int(data[2])!
                 
             }
                 
-            else if (data[0] == "Bills") {
+            else if (item[0] == "Bills") {
                 
-                newData = data[1] + "-" + data[2]
+                newData = item[1] + "-" + item[2]
                 items[1].append(newData)
                 newIndex = 1
                 expense += Int(data[2])!
@@ -108,7 +205,8 @@ class TableViewController: UITableViewController {
                 newIndex = 2
                 expense += Int(data[2])!
             }
-            
+ */
+        /*
             var total: Int = income - expense
             
             let newIndexPath = NSIndexPath(forRow: items[newIndex].count-1, inSection: newIndex)
@@ -122,7 +220,24 @@ class TableViewController: UITableViewController {
             incomeTotal.text = currencyFormatter.stringFromNumber(income)
             expenseTotal.text = currencyFormatter.stringFromNumber(expense)
             totalLabel.text = currencyFormatter.stringFromNumber(total)
+ */
+        }
+        
+        //saveData()
+        
+    }
+    
+    // MARK: NSCoding
+    /*
+    func saveData() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(data, toFile: Data.ArchiveURL.path!)
+        if !isSuccessfulSave {
+            print("Failed to save meals...")
         }
     }
-
+    
+    func loadData() -> [Data]? {
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(Data.ArchiveURL.path!) as? [Data]
+    }
+ */
 }
