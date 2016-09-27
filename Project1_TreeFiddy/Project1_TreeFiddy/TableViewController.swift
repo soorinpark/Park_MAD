@@ -12,6 +12,8 @@ class TableViewController: UITableViewController {
 
     let sectionTitles = ["Income", "Bills", "Expenses"]
     var items: [[String]] = [[],[],[]]
+    var income: Int = 0
+    var expense: Int = 0
 
     @IBOutlet weak var incomeTotal: UILabel!
     @IBOutlet weak var expenseTotal: UILabel!
@@ -22,8 +24,6 @@ class TableViewController: UITableViewController {
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
         super.viewDidLoad()
-        
-        
         
     }
 
@@ -58,8 +58,12 @@ class TableViewController: UITableViewController {
         let dataArr = data.characters.split{$0 == "-"}.map(String.init)
         
         cell.label.text = dataArr[0]
-        cell.cellAmount.text = "$" + dataArr[1]
         
+        let currencyFormatter = NSNumberFormatter()
+        currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
+        
+        cell.cellAmount.text = currencyFormatter.stringFromNumber(Int(dataArr[1])!)
+
         return cell
     }
     
@@ -83,6 +87,7 @@ class TableViewController: UITableViewController {
                 newData = data[1] + "-" + data[2]
                 items[0].append(newData)
                 newIndex = 0
+                income += Int(data[2])!
                 
             }
                 
@@ -91,6 +96,7 @@ class TableViewController: UITableViewController {
                 newData = data[1] + "-" + data[2]
                 items[1].append(newData)
                 newIndex = 1
+                expense += Int(data[2])!
                 
             }
                 
@@ -100,12 +106,22 @@ class TableViewController: UITableViewController {
                 print(newData)
                 items[2].append(newData)
                 newIndex = 2
+                expense += Int(data[2])!
             }
+            
+            var total: Int = income - expense
             
             let newIndexPath = NSIndexPath(forRow: items[newIndex].count-1, inSection: newIndex)
             tableView.beginUpdates()
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
             tableView.endUpdates()
+            
+            let currencyFormatter = NSNumberFormatter()
+            currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
+
+            incomeTotal.text = currencyFormatter.stringFromNumber(income)
+            expenseTotal.text = currencyFormatter.stringFromNumber(expense)
+            totalLabel.text = currencyFormatter.stringFromNumber(total)
         }
     }
 
