@@ -18,8 +18,8 @@
                             <rect key="frame" x="0.0" y="64" width="600" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHe-4R-yWh">
-                                    <rect key="frame" x="530.5" y="6.5" width="49.5" height="22.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount/month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHe-4R-yWh">
+                                    <rect key="frame" x="486" y="6.5" width="94" height="23"/>
                                     <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -238,7 +238,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uti-FF-KAM">
-                                <rect key="frame" x="261" y="410.5" width="78" height="42"/>
+                                <rect key="frame" x="261" y="548" width="78" height="42"/>
                                 <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="20"/>
                                 <state key="normal" title="Add Item">
                                     <color key="titleColor" red="0.95095240160000005" green="0.78066996909999997" blue="0.77601600250000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -263,7 +263,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Uti-FF-KAM" firstAttribute="top" secondItem="yvJ-yu-n0w" secondAttribute="bottom" constant="50" id="70Y-AA-wsE"/>
                             <constraint firstItem="dHy-9I-QOd" firstAttribute="trailing" secondItem="kJI-tU-E7Z" secondAttribute="trailing" id="880-L8-y74"/>
                             <constraint firstItem="B2m-UZ-syV" firstAttribute="trailing" secondItem="gZq-k5-2Jx" secondAttribute="trailing" id="8aN-1G-r7g"/>
                             <constraint firstItem="zqt-Ac-gvh" firstAttribute="leading" secondItem="kJI-tU-E7Z" secondAttribute="trailing" constant="40" id="AIH-Bk-KMB"/>
@@ -287,6 +286,7 @@
                             <constraint firstItem="j36-yv-FBI" firstAttribute="top" secondItem="zqt-Ac-gvh" secondAttribute="bottom" constant="20" id="rlH-jy-FrL"/>
                             <constraint firstItem="kJI-tU-E7Z" firstAttribute="top" secondItem="iEj-RI-7bF" secondAttribute="bottom" constant="50" id="sTs-6f-LWe"/>
                             <constraint firstItem="gZq-k5-2Jx" firstAttribute="leading" secondItem="57A-bV-hdZ" secondAttribute="leadingMargin" constant="20" id="uCN-Ll-KCV"/>
+                            <constraint firstItem="Y9S-SQ-s10" firstAttribute="top" secondItem="Uti-FF-KAM" secondAttribute="bottom" constant="10" id="v92-k8-f6L"/>
                             <constraint firstAttribute="trailingMargin" secondItem="j36-yv-FBI" secondAttribute="trailing" constant="20" id="wFI-xa-prc"/>
                             <constraint firstItem="yvJ-yu-n0w" firstAttribute="top" secondItem="gZq-k5-2Jx" secondAttribute="bottom" constant="50" id="xx9-ix-1aR"/>
                         </constraints>

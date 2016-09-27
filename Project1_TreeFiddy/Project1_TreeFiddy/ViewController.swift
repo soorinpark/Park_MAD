@@ -30,6 +30,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         typeField.delegate = self
         freqField.delegate = self
         amountField.delegate = self
+        nameField.delegate = self
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -63,7 +64,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         typeField.inputAccessoryView = toolBar
         freqField.inputAccessoryView = toolBar
+        amountField.inputAccessoryView = toolBar
         
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool // called when 'return' key pressed. return false to ignore.
+    {
+        textField.resignFirstResponder()
+        return true
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
@@ -80,6 +88,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         typeField.resignFirstResponder()
         freqField.resignFirstResponder()
+        amountField.resignFirstResponder()
         
     }
     
