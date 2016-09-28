@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Project1_TreeFiddy.xcodeproj">
+      location = "self:/Users/soorinpark/Documents/School/MAD/Project1_TreeFiddy/TreeFiddy.xcodeproj">
    </FileRef>
 </Workspace>

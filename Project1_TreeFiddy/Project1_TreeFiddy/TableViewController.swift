@@ -60,7 +60,6 @@ class TableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         
         if (section == 0) {
-            print(data[0].count)
             return data[0].count
         }
         else if (section == 1) {
@@ -162,6 +161,11 @@ class TableViewController: UITableViewController {
         }
     }
     
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        self.tableView.setEditing(editing, animated: animated)
+    }
+    
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
@@ -216,7 +220,6 @@ class TableViewController: UITableViewController {
                 
                 var item: Data = data[0][i]
                 income += item.amount
-                print(income)
             }
             
         }
@@ -269,14 +272,27 @@ class TableViewController: UITableViewController {
     func saveData() {
         let saved = NSKeyedArchiver.archiveRootObject(data, toFile: Data.ArchiveURL.path!)
         if !saved {
-            print("could not save data")
+            let alertController = UIAlertController(title: "Error", message:
+                "Could not save data. Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+            alertController.view.tintColor = UIColor(red: 242/255, green: 199/255, blue: 198/255, alpha: 1)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
         }
-        print("saved data")
     }
     
     func loadData() -> [[Data]]? {
-        print("loaded data")
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(Data.ArchiveURL.path!) as? [[Data]]
+        let loaded = NSKeyedUnarchiver.unarchiveObjectWithFile(Data.ArchiveURL.path!) as? [[Data]]
+        if (loaded == nil) {
+            let alertController = UIAlertController(title: "Error", message:
+                "Could not load data or there was no data to load.", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+            alertController.view.tintColor = UIColor(red: 242/255, green: 199/255, blue: 198/255, alpha: 1)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+
+        }
+        return loaded
     }
  
 }

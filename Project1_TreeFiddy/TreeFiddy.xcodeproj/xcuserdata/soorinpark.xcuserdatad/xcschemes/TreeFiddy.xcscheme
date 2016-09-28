@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6A7A8B7E1D90BDFE000BACEA"
-               BuildableName = "Project1_TreeFiddy.app"
-               BlueprintName = "Project1_TreeFiddy"
-               ReferencedContainer = "container:Project1_TreeFiddy.xcodeproj">
+               BuildableName = "TreeFiddy.app"
+               BlueprintName = "TreeFiddy"
+               ReferencedContainer = "container:TreeFiddy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6A7A8B7E1D90BDFE000BACEA"
-            BuildableName = "Project1_TreeFiddy.app"
-            BlueprintName = "Project1_TreeFiddy"
-            ReferencedContainer = "container:Project1_TreeFiddy.xcodeproj">
+            BuildableName = "TreeFiddy.app"
+            BlueprintName = "TreeFiddy"
+            ReferencedContainer = "container:TreeFiddy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6A7A8B7E1D90BDFE000BACEA"
-            BuildableName = "Project1_TreeFiddy.app"
-            BlueprintName = "Project1_TreeFiddy"
-            ReferencedContainer = "container:Project1_TreeFiddy.xcodeproj">
+            BuildableName = "TreeFiddy.app"
+            BlueprintName = "TreeFiddy"
+            ReferencedContainer = "container:TreeFiddy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6A7A8B7E1D90BDFE000BACEA"
-            BuildableName = "Project1_TreeFiddy.app"
-            BlueprintName = "Project1_TreeFiddy"
-            ReferencedContainer = "container:Project1_TreeFiddy.xcodeproj">
+            BuildableName = "TreeFiddy.app"
+            BlueprintName = "TreeFiddy"
+            ReferencedContainer = "container:TreeFiddy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

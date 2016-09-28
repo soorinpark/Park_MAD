@@ -17,70 +17,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="anv-1K-dCb">
-                                <rect key="frame" x="170" y="80" width="260" height="440"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HUNGRY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4c-QD-kl8">
-                                        <rect key="frame" x="0.0" y="278" width="260" height="77"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="77" id="pvb-qo-DVw"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="70"/>
-                                        <color key="textColor" red="0.22189954188481675" green="0.22189954188481675" blue="0.22189954188481675" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AGAIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35E-pt-NvN">
-                                        <rect key="frame" x="37" y="363" width="186" height="77"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="77" id="yLN-xn-0Ms"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="70"/>
-                                        <color key="textColor" red="0.22189954188481675" green="0.22189954188481675" blue="0.22189954188481675" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEVER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGB-zQ-gUX">
-                                        <rect key="frame" x="25" y="0.0" width="210" height="71"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="71" id="XeP-zc-Lsg"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="70"/>
-                                        <color key="textColor" red="0.22189954188481675" green="0.22189954188481675" blue="0.22189954188481675" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdg-8l-rn8">
-                                        <rect key="frame" x="83" y="79" width="93" height="73"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="73" id="dvn-bv-2RH"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="70"/>
-                                        <color key="textColor" red="0.22189954188481675" green="0.22189954188481675" blue="0.22189954188481675" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="burger" translatesAutoresizingMaskIntoConstraints="NO" id="yBm-Yg-IhT">
-                                        <rect key="frame" x="66" y="156" width="128" height="128"/>
-                                    </imageView>
-                                </subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walletimg" translatesAutoresizingMaskIntoConstraints="NO" id="0hO-3p-ArI">
+                                <rect key="frame" x="220" y="175" width="160" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="d4c-QD-kl8" secondAttribute="trailing" id="AMf-ob-6iI"/>
-                                    <constraint firstItem="35E-pt-NvN" firstAttribute="top" secondItem="d4c-QD-kl8" secondAttribute="bottom" constant="8" symbolic="YES" id="DXd-c6-P6y"/>
-                                    <constraint firstItem="Tdg-8l-rn8" firstAttribute="top" secondItem="oGB-zQ-gUX" secondAttribute="bottom" constant="8" symbolic="YES" id="Gox-WW-35k"/>
-                                    <constraint firstItem="oGB-zQ-gUX" firstAttribute="centerX" secondItem="Tdg-8l-rn8" secondAttribute="centerX" id="JcC-T0-V6P"/>
-                                    <constraint firstItem="d4c-QD-kl8" firstAttribute="leading" secondItem="anv-1K-dCb" secondAttribute="leading" id="KUQ-7g-2FL"/>
-                                    <constraint firstItem="oGB-zQ-gUX" firstAttribute="top" secondItem="anv-1K-dCb" secondAttribute="top" id="OrW-lD-I4Q"/>
-                                    <constraint firstAttribute="bottom" secondItem="35E-pt-NvN" secondAttribute="bottom" id="XsX-yY-YRK"/>
-                                    <constraint firstItem="oGB-zQ-gUX" firstAttribute="centerX" secondItem="anv-1K-dCb" secondAttribute="centerX" id="Ybs-x7-zma"/>
-                                    <constraint firstItem="yBm-Yg-IhT" firstAttribute="centerY" secondItem="anv-1K-dCb" secondAttribute="centerY" id="dfN-QM-0SL"/>
-                                    <constraint firstItem="d4c-QD-kl8" firstAttribute="centerX" secondItem="35E-pt-NvN" secondAttribute="centerX" id="kMh-Dl-hfG"/>
-                                    <constraint firstItem="yBm-Yg-IhT" firstAttribute="centerX" secondItem="anv-1K-dCb" secondAttribute="centerX" id="kqq-ky-vRc"/>
-                                    <constraint firstItem="oGB-zQ-gUX" firstAttribute="top" secondItem="anv-1K-dCb" secondAttribute="top" id="yzm-6a-pic"/>
+                                    <constraint firstAttribute="width" constant="160" id="kOj-pF-xa2"/>
+                                    <constraint firstAttribute="height" constant="160" id="udF-sH-bHe"/>
                                 </constraints>
-                            </view>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tree Fiddy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ic9-FK-Oes">
+                                <rect key="frame" x="150" y="345" width="300" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="yCP-L3-zhO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="50"/>
+                                <color key="textColor" white="0.42960885067114096" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.95095240160000005" green="0.78066996909999997" blue="0.77601600250000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="0.81579967350000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="anv-1K-dCb" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ABj-sZ-SIv"/>
-                            <constraint firstItem="anv-1K-dCb" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="60" id="Y9D-qA-ncu"/>
-                            <constraint firstItem="anv-1K-dCb" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="leU-b8-RKM"/>
+                            <constraint firstItem="ic9-FK-Oes" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="9Fq-MO-Al0"/>
+                            <constraint firstItem="0hO-3p-ArI" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="b5P-TJ-mk3"/>
+                            <constraint firstItem="0hO-3p-ArI" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-45" id="kS1-P8-Bch"/>
+                            <constraint firstItem="ic9-FK-Oes" firstAttribute="top" secondItem="0hO-3p-ArI" secondAttribute="bottom" constant="10" id="ov1-rc-odg"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -90,6 +49,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="burger" width="128" height="128"/>
+        <image name="walletimg" width="170" height="170"/>
     </resources>
 </document>
