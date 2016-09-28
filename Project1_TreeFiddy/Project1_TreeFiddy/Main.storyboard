@@ -13,133 +13,141 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" id="C1C-OR-kj2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.95095240160000005" green="0.78066996909999997" blue="0.77601600250000002" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="trv-bf-6NC">
-                            <rect key="frame" x="0.0" y="64" width="600" height="35"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="46"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount/month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHe-4R-yWh">
-                                    <rect key="frame" x="486" y="6.5" width="94" height="23"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuW-HK-uaY">
+                                    <rect key="frame" x="20" y="13.5" width="38.5" height="22.5"/>
                                     <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuW-HK-uaY">
-                                    <rect key="frame" x="20" y="6.5" width="38.5" height="22.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount/month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHe-4R-yWh">
+                                    <rect key="frame" x="486" y="13.5" width="94" height="23"/>
                                     <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.95095240157581362" green="0.78066996906942943" blue="0.7760160025017101" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="CuW-HK-uaY" firstAttribute="centerY" secondItem="trv-bf-6NC" secondAttribute="centerY" id="5PL-L6-gTx"/>
+                                <constraint firstItem="CuW-HK-uaY" firstAttribute="centerY" secondItem="trv-bf-6NC" secondAttribute="centerY" constant="1.75" id="5PL-L6-gTx"/>
                                 <constraint firstAttribute="trailing" secondItem="mHe-4R-yWh" secondAttribute="trailing" constant="20" id="Bu1-G8-RB2"/>
-                                <constraint firstItem="mHe-4R-yWh" firstAttribute="centerY" secondItem="trv-bf-6NC" secondAttribute="centerY" id="NwD-k9-sQe"/>
+                                <constraint firstItem="mHe-4R-yWh" firstAttribute="centerY" secondItem="trv-bf-6NC" secondAttribute="centerY" constant="2" id="NwD-k9-sQe"/>
                                 <constraint firstItem="CuW-HK-uaY" firstAttribute="leading" secondItem="trv-bf-6NC" secondAttribute="leading" constant="20" id="dj4-cG-5Ye"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="vSs-e8-U9W">
-                            <rect key="frame" x="0.0" y="182" width="600" height="110"/>
+                        <view key="tableFooterView" tag="1" contentMode="scaleToFill" id="vSs-e8-U9W">
+                            <rect key="frame" x="0.0" y="193" width="600" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Income Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UmQ-MH-LmZ">
-                                    <rect key="frame" x="365.5" y="10.5" width="84.5" height="22.5"/>
+                                    <rect key="frame" x="390" y="29" width="85" height="23"/>
                                     <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="15"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNP-ay-uem">
-                                    <rect key="frame" x="358.5" y="44" width="91.5" height="22.5"/>
+                                    <rect key="frame" x="383" y="62" width="92" height="23"/>
                                     <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="15"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qdb-gE-xff">
-                                    <rect key="frame" x="480" y="8" width="90" height="25"/>
+                                    <rect key="frame" x="492" y="29" width="90" height="23"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="25" id="KDA-3B-scY"/>
-                                        <constraint firstAttribute="width" constant="90" id="QAU-3j-q3K"/>
+                                        <constraint firstAttribute="width" constant="90" id="jD4-PI-DgZ"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="15"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIM-dg-ybm">
-                                    <rect key="frame" x="479" y="43" width="90" height="25"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIM-dg-ybm">
+                                    <rect key="frame" x="492" y="62" width="90" height="23"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="90" id="Fqb-Pn-HSF"/>
-                                        <constraint firstAttribute="height" constant="25" id="kLe-0h-VFX"/>
+                                        <constraint firstAttribute="width" constant="90" id="aLm-sh-rzj"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="15"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2rt-r6-2kR">
-                                    <rect key="frame" x="480" y="78" width="90" height="25"/>
+                                    <rect key="frame" x="492" y="95" width="90" height="23"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="25" id="Ee1-4Q-CVb"/>
-                                        <constraint firstAttribute="width" constant="90" id="MFS-ri-LBP"/>
+                                        <constraint firstAttribute="width" constant="90" id="zUK-EO-UUc"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="15"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ba0-GV-egM">
-                                    <rect key="frame" x="418" y="80.5" width="32" height="22.5"/>
+                                    <rect key="frame" x="443" y="95" width="32" height="23"/>
                                     <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="15"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PNn-u8-PZ1">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="10"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="10" id="pZv-Ij-FgW"/>
+                                    </constraints>
+                                </view>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="1" green="1" blue="0.81579967347677329" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstItem="UmQ-MH-LmZ" firstAttribute="trailing" secondItem="TNP-ay-uem" secondAttribute="trailing" id="1wG-yT-LuD"/>
-                                <constraint firstItem="TNP-ay-uem" firstAttribute="trailing" secondItem="ba0-GV-egM" secondAttribute="trailing" id="AVd-Zh-stN"/>
-                                <constraint firstItem="UmQ-MH-LmZ" firstAttribute="baseline" secondItem="Qdb-gE-xff" secondAttribute="baseline" id="GIX-nU-hVM"/>
-                                <constraint firstItem="Qdb-gE-xff" firstAttribute="leading" secondItem="UmQ-MH-LmZ" secondAttribute="trailing" constant="30" id="Ojj-If-K2q"/>
-                                <constraint firstItem="ba0-GV-egM" firstAttribute="baseline" secondItem="2rt-r6-2kR" secondAttribute="baseline" id="Prk-Pw-3qK"/>
-                                <constraint firstItem="2rt-r6-2kR" firstAttribute="top" secondItem="lIM-dg-ybm" secondAttribute="bottom" constant="10" id="QaN-Rp-Qoz"/>
-                                <constraint firstItem="lIM-dg-ybm" firstAttribute="centerY" secondItem="vSs-e8-U9W" secondAttribute="centerY" id="Ss3-va-jb8"/>
-                                <constraint firstItem="TNP-ay-uem" firstAttribute="centerY" secondItem="vSs-e8-U9W" secondAttribute="centerY" id="W0N-5i-ObJ"/>
-                                <constraint firstItem="2rt-r6-2kR" firstAttribute="leading" secondItem="ba0-GV-egM" secondAttribute="trailing" constant="30" id="XvG-O1-hjk"/>
-                                <constraint firstItem="lIM-dg-ybm" firstAttribute="top" secondItem="Qdb-gE-xff" secondAttribute="bottom" constant="10" id="dH1-GW-2SV"/>
-                                <constraint firstAttribute="trailing" secondItem="2rt-r6-2kR" secondAttribute="trailing" constant="30" id="ntL-wp-6Ve"/>
-                                <constraint firstAttribute="trailing" secondItem="Qdb-gE-xff" secondAttribute="trailing" constant="30" id="qaP-px-bx6"/>
-                                <constraint firstAttribute="trailing" secondItem="lIM-dg-ybm" secondAttribute="trailing" constant="30" id="tHK-rq-Kba"/>
-                                <constraint firstItem="lIM-dg-ybm" firstAttribute="leading" secondItem="TNP-ay-uem" secondAttribute="trailing" constant="30" id="yRG-3O-aqT"/>
+                                <constraint firstItem="Qdb-gE-xff" firstAttribute="leading" secondItem="UmQ-MH-LmZ" secondAttribute="trailing" constant="17" id="5LZ-8P-mob"/>
+                                <constraint firstItem="lIM-dg-ybm" firstAttribute="top" secondItem="Qdb-gE-xff" secondAttribute="bottom" constant="10" id="5sg-z8-LnW"/>
+                                <constraint firstItem="TNP-ay-uem" firstAttribute="baseline" secondItem="lIM-dg-ybm" secondAttribute="baseline" id="DPQ-Wb-spq"/>
+                                <constraint firstItem="PNn-u8-PZ1" firstAttribute="top" secondItem="vSs-e8-U9W" secondAttribute="top" id="F3h-hv-fOb"/>
+                                <constraint firstItem="UmQ-MH-LmZ" firstAttribute="baseline" secondItem="Qdb-gE-xff" secondAttribute="baseline" id="HPl-bW-QoQ"/>
+                                <constraint firstItem="TNP-ay-uem" firstAttribute="trailing" secondItem="ba0-GV-egM" secondAttribute="trailing" id="K38-7X-WRk"/>
+                                <constraint firstItem="UmQ-MH-LmZ" firstAttribute="trailing" secondItem="TNP-ay-uem" secondAttribute="trailing" id="b2l-wT-23E"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="lIM-dg-ybm" secondAttribute="trailing" constant="10" id="ea0-RL-Lv1"/>
+                                <constraint firstItem="ba0-GV-egM" firstAttribute="baseline" secondItem="2rt-r6-2kR" secondAttribute="baseline" id="fbB-s8-9JC"/>
+                                <constraint firstAttribute="trailing" secondItem="PNn-u8-PZ1" secondAttribute="trailing" id="fsC-iU-xmw"/>
+                                <constraint firstItem="2rt-r6-2kR" firstAttribute="top" secondItem="lIM-dg-ybm" secondAttribute="bottom" constant="10" id="hks-Cp-hFJ"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="2rt-r6-2kR" secondAttribute="trailing" constant="10" id="qVH-9s-fgJ"/>
+                                <constraint firstItem="PNn-u8-PZ1" firstAttribute="leading" secondItem="vSs-e8-U9W" secondAttribute="leading" id="wBl-AH-Q7g"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="Qdb-gE-xff" secondAttribute="trailing" constant="10" id="y4g-t6-EHt"/>
+                                <constraint firstAttribute="bottom" secondItem="2rt-r6-2kR" secondAttribute="bottom" constant="10" id="yYt-RR-1Vj"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableViewCell" rowHeight="55" id="iu5-eB-mGR" customClass="TableViewCell" customModule="Project1_TreeFiddy" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="127" width="600" height="55"/>
+                                <rect key="frame" x="0.0" y="138" width="600" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iu5-eB-mGR" id="sNj-A2-GEg">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Abf-fW-8av">
-                                            <rect key="frame" x="472" y="17" width="100" height="21"/>
+                                            <rect key="frame" x="482" y="19" width="100" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="wy1-r6-zZr"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="14"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ptM-Fl-zPs">
-                                            <rect key="frame" x="28" y="8" width="400" height="38.5"/>
+                                            <rect key="frame" x="18" y="10" width="400" height="38.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="400" id="TSr-Ur-k8t"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="15"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="ptM-Fl-zPs" secondAttribute="bottom" id="CsW-nv-JGt"/>
-                                        <constraint firstItem="Abf-fW-8av" firstAttribute="trailing" secondItem="sNj-A2-GEg" secondAttribute="trailingMargin" constant="-20" id="HwV-yu-D5H"/>
-                                        <constraint firstItem="ptM-Fl-zPs" firstAttribute="top" secondItem="sNj-A2-GEg" secondAttribute="topMargin" id="K0Z-dh-OLo"/>
-                                        <constraint firstItem="Abf-fW-8av" firstAttribute="centerY" secondItem="sNj-A2-GEg" secondAttribute="centerY" id="PXQ-UG-SGM"/>
-                                        <constraint firstItem="ptM-Fl-zPs" firstAttribute="leading" secondItem="sNj-A2-GEg" secondAttribute="leadingMargin" constant="20" id="lWJ-49-ytr"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="ptM-Fl-zPs" secondAttribute="bottom" constant="-2" id="CsW-nv-JGt"/>
+                                        <constraint firstItem="Abf-fW-8av" firstAttribute="trailing" secondItem="sNj-A2-GEg" secondAttribute="trailingMargin" constant="-10" id="HwV-yu-D5H"/>
+                                        <constraint firstItem="ptM-Fl-zPs" firstAttribute="top" secondItem="sNj-A2-GEg" secondAttribute="topMargin" constant="2" id="K0Z-dh-OLo"/>
+                                        <constraint firstItem="Abf-fW-8av" firstAttribute="centerY" secondItem="sNj-A2-GEg" secondAttribute="centerY" constant="2.25" id="PXQ-UG-SGM"/>
+                                        <constraint firstItem="ptM-Fl-zPs" firstAttribute="leading" secondItem="sNj-A2-GEg" secondAttribute="leadingMargin" constant="10" id="lWJ-49-ytr"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

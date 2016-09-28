@@ -11,42 +11,40 @@ import UIKit
 class TableViewController: UITableViewController {
 
     let sectionTitles = ["Income", "Bills", "Expenses"]
-    var items: [[String]] = [[],[],[]]
-    var income: Int = 0
-    var expense: Int = 0
-
+    
     @IBOutlet weak var incomeTotal: UILabel!
     @IBOutlet weak var expenseTotal: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     
     var data: [[Data]] = [[],[],[]]
-    
-    var incomeNum: Int = 0
-    var expenseNum: Int = 0
-    var billsNum: Int = 0
-    
+ 
     override func viewDidLoad() {
         
+        
+        //delete all data in archive path
+        /*
         do {
             try NSFileManager.defaultManager().removeItemAtPath(Data.ArchiveURL.path!)
         } catch {
             
+        }*/
+        
+        if let savedData = loadData() {
+            for i in 0...data.count-1 {
+                data[i] += savedData[i]
+                
+            }
         }
+        
+        updateTotal()
         
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
+        
         super.viewDidLoad()
         
-        /*
-        if let savedData = loadData() {
-            data += savedData
-        } else {
-            // Load the sample data.
-            loadData()
-        }
-         */
-        
-        
+        navigationItem.leftBarButtonItem = editButtonItem()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,14 +60,15 @@ class TableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         
         if (section == 0) {
-            return incomeNum
+            print(data[0].count)
+            return data[0].count
         }
         else if (section == 1) {
-            return billsNum
+            return data[1].count
         }
         
         else {
-            return expenseNum
+            return data[2].count
         }
         
     }
@@ -87,26 +86,14 @@ class TableViewController: UITableViewController {
         
         let cellIdentifier = "tableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! TableViewCell
-        //let data = items[indexPath.section][indexPath.row]
-        //let dataArr = data.characters.split{$0 == "-"}.map(String.init)
-        
+
         let item = data[indexPath.section][indexPath.row]
-        
-        //cell.label.text = dataArr[0]
         
         let currencyFormatter = NSNumberFormatter()
         currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
         
         cell.label.text = item.name
         cell.cellAmount.text = currencyFormatter.stringFromNumber(Int(item.amount))
-        
-        
-        /*
-        let currencyFormatter = NSNumberFormatter()
-        currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
-        
-        cell.cellAmount.text = currencyFormatter.stringFromNumber(Int(dataArr[1])!)
-         */
 
         return cell
     }
@@ -114,130 +101,182 @@ class TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView, textLabel = headerView.textLabel {
             
-            let newSize = CGFloat(15)
-            //let fontName = textLabel.font.fontName
+            let newSize = CGFloat(17)
             textLabel.font = UIFont(name: "KannadaSangamMN", size: newSize)
+            textLabel.tintColor = UIColor.whiteColor()
         }
+    }
+    
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView
+    {
+        let headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 30))
+        
+        if (section == 0) {
+            headerView.backgroundColor = UIColor(red: 211/255, green: 239/255, blue: 200/255, alpha: 1)
+
+        }
+        
+        else if (section == 1) {
+            
+            headerView.backgroundColor = UIColor(red: 186/255, green: 225/255, blue: 255/255, alpha: 1)
+
+        }
+        
+        else {
+            headerView.backgroundColor = UIColor(red: 242/255, green: 199/255, blue: 198/255, alpha: 1)
+        }
+        
+        let headerLabel = UILabel(frame: CGRect(x: 20, y: 5, width: tableView.bounds.size.width, height: 30))
+        headerLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+        let newSize = CGFloat(15)
+        headerLabel.font = UIFont(name: "KannadaSangamMN", size: newSize)
+        headerLabel.textColor = UIColor.darkGrayColor()
+        headerView.addSubview(headerLabel)
+
+
+        
+        return headerView
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 35
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            
+            data[indexPath.section].removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            saveData()
+            updateTotal()
+        }
+        
+        else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+    }
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
     
     @IBAction func addToTable(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? ViewController, item = sourceViewController.item {
-            // Add a new meal item.
-            //var newIndex = 0
-            //var newData = ""
-            
-            print(item.name)
-            print(item.type)
-            print(item.amount)
-            
+
             var sectionNum: Int = 0
-            
             var newIndexPath = NSIndexPath(forRow:0, inSection: 0)
             
             if (item.type == "Income") {
                 
                 sectionNum = 0
-                income += item.amount
-                incomeNum += 1
-                newIndexPath = NSIndexPath(forRow: incomeNum-1, inSection: sectionNum)
+                newIndexPath = NSIndexPath(forRow: data[0].count, inSection: sectionNum)
 
             }
             
             else if (item.type == "Bills") {
                 sectionNum = 1
-                expense += item.amount
-                billsNum += 1
-                newIndexPath = NSIndexPath(forRow: billsNum-1, inSection: sectionNum)
+                newIndexPath = NSIndexPath(forRow: data[1].count, inSection: sectionNum)
 
             }
             
-            else if (item.type == "Expenses") {
+            else {
             
                 sectionNum = 2
-                expense += item.amount
-                expenseNum += 1
-                newIndexPath = NSIndexPath(forRow: expenseNum-1, inSection: sectionNum)
+                newIndexPath = NSIndexPath(forRow: data[2].count, inSection: sectionNum)
 
             }
-            
-            let total: Int = income - expense
             
             data[sectionNum].append(item)
-            print(data)
 
+            saveData()
+            
             tableView.beginUpdates()
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             tableView.endUpdates()
             
-            let currencyFormatter = NSNumberFormatter()
-            currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
-            
-            incomeTotal.text = currencyFormatter.stringFromNumber(income)
-            expenseTotal.text = currencyFormatter.stringFromNumber(expense)
-            totalLabel.text = currencyFormatter.stringFromNumber(total)
- 
-
- 
-            /*
-            if (item[0] == "Income") {
+            updateTotal()
+         }
+        
+        
+    }
+    
+    func updateTotal() {
+    
+        var income: Int = 0
+        var expense: Int = 0
+        
+        if data[0].count >= 1 {
+            for i in 0...data[0].count-1 {
                 
-                newData = item[1] + "-" + data[2]
-                items[0].append(newData)
-                newIndex = 0
-                income += Int(data[2])!
-                
+                var item: Data = data[0][i]
+                income += item.amount
+                print(income)
             }
-                
-            else if (item[0] == "Bills") {
-                
-                newData = item[1] + "-" + item[2]
-                items[1].append(newData)
-                newIndex = 1
-                expense += Int(data[2])!
-                
-            }
-                
-            else {
-
-                newData = data[1] + "-" + data[2]
-                print(newData)
-                items[2].append(newData)
-                newIndex = 2
-                expense += Int(data[2])!
-            }
- */
-        /*
-            var total: Int = income - expense
             
-            let newIndexPath = NSIndexPath(forRow: items[newIndex].count-1, inSection: newIndex)
-            tableView.beginUpdates()
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-            tableView.endUpdates()
-            
-            let currencyFormatter = NSNumberFormatter()
-            currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
-
-            incomeTotal.text = currencyFormatter.stringFromNumber(income)
-            expenseTotal.text = currencyFormatter.stringFromNumber(expense)
-            totalLabel.text = currencyFormatter.stringFromNumber(total)
- */
         }
         
-        //saveData()
+        if data[1].count >= 1 {
+            for i in 0...data[1].count-1 {
+                
+                var item: Data = data[1][i]
+                expense += item.amount
+            }
+        }
         
+        if data[2].count >= 1 {
+            for i in 0...data[2].count-1 {
+                
+                var item: Data = data[2][i]
+                expense += item.amount
+            }
+        }
+    
+    
+        var total: Int = income - expense
+    
+        let currencyFormatter = NSNumberFormatter()
+        currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
+    
+        incomeTotal.text = currencyFormatter.stringFromNumber(income)
+        expenseTotal.text = currencyFormatter.stringFromNumber(expense)
+        totalLabel.text = currencyFormatter.stringFromNumber(total)
+        
+        var totalView = self.view.viewWithTag(1)! as UIView
+        
+        if (total <= 0) {
+            totalView.backgroundColor = UIColor(red: 242/255, green: 199/255, blue: 198/255, alpha: 1)
+        }
+        
+        else if (total > 0 && total <= 200) {
+            totalView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 208/255, alpha: 1)
+        }
+        
+        else {
+            totalView.backgroundColor = UIColor(red: 211/255, green: 239/255, blue: 200/255, alpha: 1)
+        }
+
+
     }
     
     // MARK: NSCoding
-    /*
+
     func saveData() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(data, toFile: Data.ArchiveURL.path!)
-        if !isSuccessfulSave {
-            print("Failed to save meals...")
+        let saved = NSKeyedArchiver.archiveRootObject(data, toFile: Data.ArchiveURL.path!)
+        if !saved {
+            print("could not save data")
         }
+        print("saved data")
     }
     
-    func loadData() -> [Data]? {
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(Data.ArchiveURL.path!) as? [Data]
+    func loadData() -> [[Data]]? {
+        print("loaded data")
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(Data.ArchiveURL.path!) as? [[Data]]
     }
- */
+ 
 }

@@ -34,9 +34,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         nameField.delegate = self
         
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
- 
         
         let typePickerView = UIPickerView(frame: CGRectMake(0, 200, view.frame.width, 300))
         let freqPickerView = UIPickerView(frame: CGRectMake(0, 200, view.frame.width, 300))
@@ -149,6 +146,26 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         }
     }
     
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        
+        
+        if (typeField.text == "" || nameField.text == "" || amountField.text == "" || freqField.text == "") {
+            let alertController = UIAlertController(title: "Error", message:
+                "You have not entered in one or more fields. Please go back and fill each field.", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+            alertController.view.tintColor = UIColor(red: 242/255, green: 199/255, blue: 198/255, alpha: 1)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+            return false
+            
+        }
+        else {
+            return true
+        }
+        
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if addButton === sender {
@@ -163,9 +180,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             print(amount2)
             let freq = freqField.text!
             let name = nameField.text!
-            //let amountTotal = amount + "/" + freq
             
-            var newAmount = 0
+            var newAmount: Int = 0
             
             if (freq == "week") {
                 newAmount = amount2! * 4
@@ -192,7 +208,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             
             
             item = Data(type: type, name: name, amount: newAmount)
-            //data = [type, name, String(newAmount)]
             
         }
     }

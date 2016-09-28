@@ -48,7 +48,7 @@ class Data: NSObject, NSCoding {
         
         aCoder.encodeObject(type, forKey: PropertyKey.typeKey)
         aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
-        aCoder.encodeObject(amount, forKey: PropertyKey.amountKey)
+        aCoder.encodeInteger(amount, forKey: PropertyKey.amountKey)
 
         
     }

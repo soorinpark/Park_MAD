@@ -23,9 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.setBackgroundImage(UIImage(), forBarMetrics: .Default)
         navigationBarAppearace.backgroundColor = UIColor.whiteColor()
         navigationBarAppearace.tintColor = UIColor(red: 242/255, green: 199/255, blue: 198/255, alpha: 1)
-        navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.darkGrayColor(), NSFontAttributeName: UIFont(name: "KannadaSangamMN", size: CGFloat(18))!]
-
+        navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.darkGrayColor(), NSFontAttributeName: UIFont(name: "Verdana", size: CGFloat(18))!]
         
+        UIApplication.sharedApplication().statusBarHidden = false
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
+        //Change status bar color
+        let statusBar: UIView = UIApplication.sharedApplication().valueForKey("statusBar") as! UIView
+        if statusBar.respondsToSelector(Selector("setBackgroundColor:")) {
+            statusBar.backgroundColor = UIColor.whiteColor()
+        }
+                
         return true
     }
 
