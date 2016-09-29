@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6A7A8B7E1D90BDFE000BACEA"
-               BuildableName = "TreeFiddy.app"
+               BuildableName = "Tree Fiddy.app"
                BlueprintName = "TreeFiddy"
                ReferencedContainer = "container:TreeFiddy.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6A7A8B7E1D90BDFE000BACEA"
-            BuildableName = "TreeFiddy.app"
+            BuildableName = "Tree Fiddy.app"
             BlueprintName = "TreeFiddy"
             ReferencedContainer = "container:TreeFiddy.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6A7A8B7E1D90BDFE000BACEA"
-            BuildableName = "TreeFiddy.app"
+            BuildableName = "Tree Fiddy.app"
             BlueprintName = "TreeFiddy"
             ReferencedContainer = "container:TreeFiddy.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6A7A8B7E1D90BDFE000BACEA"
-            BuildableName = "TreeFiddy.app"
+            BuildableName = "Tree Fiddy.app"
             BlueprintName = "TreeFiddy"
             ReferencedContainer = "container:TreeFiddy.xcodeproj">
          </BuildableReference>

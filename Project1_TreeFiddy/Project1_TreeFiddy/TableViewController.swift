@@ -27,7 +27,7 @@ class TableViewController: UITableViewController {
             try NSFileManager.defaultManager().removeItemAtPath(Data.ArchiveURL.path!)
         } catch {
             
-        }*/
+        }*/ 
         
         if let savedData = loadData() {
             for i in 0...data.count-1 {
