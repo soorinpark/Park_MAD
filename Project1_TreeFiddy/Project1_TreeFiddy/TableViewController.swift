@@ -23,11 +23,13 @@ class TableViewController: UITableViewController {
         
         //delete all data in archive path
         /*
-        do {
+                do {
             try NSFileManager.defaultManager().removeItemAtPath(Data.ArchiveURL.path!)
         } catch {
             
-        }*/ 
+        }*/
+         
+        
         
         if let savedData = loadData() {
             for i in 0...data.count-1 {
@@ -287,8 +289,7 @@ class TableViewController: UITableViewController {
             let alertController = UIAlertController(title: "Error", message:
                 "Could not load data or there was no data to load.", preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-            alertController.view.tintColor = UIColor(red: 242/255, green: 199/255, blue: 198/255, alpha: 1)
-            
+            alertController.view.tintColor = UIColor.darkGrayColor()
             self.presentViewController(alertController, animated: true, completion: nil)
 
         }
