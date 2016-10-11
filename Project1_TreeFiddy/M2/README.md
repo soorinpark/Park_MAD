@@ -1,0 +1,1 @@
+To use this app, click the add button on the top right corner to choose the type, name, amount, and frequency of the item. App will automatically sort the item into its appropriate category. Data will be saved every time you delete/add an item and will be retained the next time you open the app.
