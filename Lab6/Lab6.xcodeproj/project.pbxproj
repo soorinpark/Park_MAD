@@ -12,6 +12,8 @@
 		6A5A67911DA6C2F0002C212E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A5A678F1DA6C2F0002C212E /* Main.storyboard */; };
 		6A5A67931DA6C2F0002C212E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A5A67921DA6C2F0002C212E /* Assets.xcassets */; };
 		6A5A67961DA6C2F0002C212E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A5A67941DA6C2F0002C212E /* LaunchScreen.storyboard */; };
+		6A67047C1DA6CED700ED3256 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A67047B1DA6CED700ED3256 /* AVFoundation.framework */; };
+		6A6704801DA6D2E500ED3256 /* tinyrick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A67047F1DA6D2E500ED3256 /* tinyrick.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		6A5A67921DA6C2F0002C212E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A5A67951DA6C2F0002C212E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A5A67971DA6C2F0002C212E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A67047B1DA6CED700ED3256 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		6A67047F1DA6D2E500ED3256 /* tinyrick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = tinyrick.mp3; path = ../../../../../Downloads/tinyrick.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A67047C1DA6CED700ED3256 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,7 @@
 			children = (
 				6A5A678A1DA6C2F0002C212E /* Lab6 */,
 				6A5A67891DA6C2F0002C212E /* Products */,
+				6A67047A1DA6CED700ED3256 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +60,7 @@
 		6A5A678A1DA6C2F0002C212E /* Lab6 */ = {
 			isa = PBXGroup;
 			children = (
+				6A67047F1DA6D2E500ED3256 /* tinyrick.mp3 */,
 				6A5A678B1DA6C2F0002C212E /* AppDelegate.swift */,
 				6A5A678D1DA6C2F0002C212E /* ViewController.swift */,
 				6A5A678F1DA6C2F0002C212E /* Main.storyboard */,
@@ -62,6 +69,14 @@
 				6A5A67971DA6C2F0002C212E /* Info.plist */,
 			);
 			path = Lab6;
+			sourceTree = "<group>";
+		};
+		6A67047A1DA6CED700ED3256 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6A67047B1DA6CED700ED3256 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +111,7 @@
 				TargetAttributes = {
 					6A5A67871DA6C2F0002C212E = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = GJ6V736FLW;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -126,6 +142,7 @@
 				6A5A67961DA6C2F0002C212E /* LaunchScreen.storyboard in Resources */,
 				6A5A67931DA6C2F0002C212E /* Assets.xcassets in Resources */,
 				6A5A67911DA6C2F0002C212E /* Main.storyboard in Resources */,
+				6A6704801DA6D2E500ED3256 /* tinyrick.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +275,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = GJ6V736FLW;
 				INFOPLIST_FILE = Lab6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.soorinpark.Lab6;
@@ -270,6 +288,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = GJ6V736FLW;
 				INFOPLIST_FILE = Lab6/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.soorinpark.Lab6;
@@ -297,6 +316,7 @@
 				6A5A679C1DA6C2F0002C212E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

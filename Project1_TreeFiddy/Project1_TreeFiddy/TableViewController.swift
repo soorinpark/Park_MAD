@@ -28,8 +28,6 @@ class TableViewController: UITableViewController {
         } catch {
             
         }*/
-         
-        
         
         if let savedData = loadData() {
             for i in 0...data.count-1 {
@@ -174,44 +172,53 @@ class TableViewController: UITableViewController {
         return UITableViewAutomaticDimension
     }
     
+    
     @IBAction func addToTable(_ sender: UIStoryboardSegue) {
+        
         if let sourceViewController = sender.source as? ViewController, let item = sourceViewController.item {
-
-            var sectionNum: Int = 0
-            var newIndexPath = IndexPath(row:0, section: 0)
             
-            if (item.type == "Income") {
-                
-                sectionNum = 0
-                newIndexPath = IndexPath(row: data[0].count, section: sectionNum)
-
-            }
-            
-            else if (item.type == "Bills") {
-                sectionNum = 1
-                newIndexPath = IndexPath(row: data[1].count, section: sectionNum)
-
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                data[selectedIndexPath.section][selectedIndexPath.row] = item
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
             }
             
             else {
-            
-                sectionNum = 2
-                newIndexPath = IndexPath(row: data[2].count, section: sectionNum)
+                var sectionNum: Int = 0
+                var newIndexPath = IndexPath(row:0, section: 0)
+                
+                if (item.type == "Income") {
+                    
+                    sectionNum = 0
+                    newIndexPath = IndexPath(row: data[0].count, section: sectionNum)
 
+                }
+                
+                else if (item.type == "Bills") {
+                    sectionNum = 1
+                    newIndexPath = IndexPath(row: data[1].count, section: sectionNum)
+
+                }
+                
+                else {
+                
+                    sectionNum = 2
+                    newIndexPath = IndexPath(row: data[2].count, section: sectionNum)
+
+                }
+                
+                data[sectionNum].append(item)
+
+                saveData()
+                
+                tableView.beginUpdates()
+                tableView.insertRows(at: [newIndexPath], with: UITableViewRowAnimation.fade)
+                tableView.endUpdates()
+                
+                updateTotal()
+             
             }
             
-            data[sectionNum].append(item)
-
-            saveData()
-            
-            tableView.beginUpdates()
-            tableView.insertRows(at: [newIndexPath], with: UITableViewRowAnimation.fade)
-            tableView.endUpdates()
-            
-            updateTotal()
-         }
-        
-        
+        }
     }
     
     func updateTotal() {
@@ -291,6 +298,7 @@ class TableViewController: UITableViewController {
     
     func loadData() -> [[Data]]? {
         let loaded = NSKeyedUnarchiver.unarchiveObject(withFile: Data.ArchiveURL.path) as? [[Data]]
+        /*
         if (loaded == nil) {
             let alertController = UIAlertController(title: "Error", message:
                 "Could not load data or there was no data to load.", preferredStyle: UIAlertControllerStyle.alert)
@@ -298,8 +306,22 @@ class TableViewController: UITableViewController {
             alertController.view.tintColor = UIColor.darkGray
             self.present(alertController, animated: true, completion: nil)
 
-        }
+        }*/
         return loaded
     }
- 
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "showItem" {
+            
+            let viewController = segue.destination as! ViewController
+             
+            if let selectedCell = sender as? TableViewCell {
+                let indexPath = tableView.indexPath(for: selectedCell)!
+                let selectedItem = data[indexPath.section][indexPath.row]
+                viewController.item = selectedItem
+            }
+        }
+    }
 }

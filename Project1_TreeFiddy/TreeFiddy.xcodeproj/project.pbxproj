@@ -107,6 +107,7 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = GJ6V736FLW;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -207,7 +208,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -248,7 +249,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -261,10 +262,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				DEVELOPMENT_TEAM = GJ6V736FLW;
 				INFOPLIST_FILE = Project1_TreeFiddy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soorinpark.Tree-Fiddy";
 				PRODUCT_NAME = "Tree Fiddy";
+				PROVISIONING_PROFILE = "7fc202bb-9fb2-40d4-866e-f973bda5efd4";
+				PROVISIONING_PROFILE_SPECIFIER = "Tree Fiddy Distribution Profile";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -274,10 +278,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				DEVELOPMENT_TEAM = GJ6V736FLW;
 				INFOPLIST_FILE = Project1_TreeFiddy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soorinpark.Tree-Fiddy";
 				PRODUCT_NAME = "Tree Fiddy";
+				PROVISIONING_PROFILE = "6b73d95c-eea2-4ccb-9ebf-02fbc14610b7";
+				PROVISIONING_PROFILE_SPECIFIER = "XC Ad Hoc: com.soorinpark.Tree-Fiddy";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

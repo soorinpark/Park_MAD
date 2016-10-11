@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Lab6" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +18,55 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tinyrick" translatesAutoresizingMaskIntoConstraints="NO" id="pS4-T7-oSX">
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Cdc-Dm-DqN" appends="YES" id="Ubo-Hk-OLj"/>
+                                    <outletCollection property="gestureRecognizers" destination="wyk-hu-UIH" appends="YES" id="Vqg-eg-f4F"/>
+                                    <outletCollection property="gestureRecognizers" destination="PJF-fx-pVP" appends="YES" id="Xkn-t2-kn0"/>
+                                    <outletCollection property="gestureRecognizers" destination="bBn-bq-Kox" appends="YES" id="xUG-c4-FBc"/>
+                                </connections>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="pS4-T7-oSX" secondAttribute="bottom" id="TLH-K8-gNG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pS4-T7-oSX" secondAttribute="trailing" id="Xce-x3-SjE"/>
+                            <constraint firstItem="pS4-T7-oSX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fKQ-h9-pEa"/>
+                            <constraint firstItem="pS4-T7-oSX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="mII-OU-uAX"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Cdc-Dm-DqN">
+                    <connections>
+                        <action selector="handlePan:" destination="BYZ-38-t0r" id="eSP-1i-84q"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="FLA-LG-2tt"/>
+                    </connections>
+                </panGestureRecognizer>
+                <rotationGestureRecognizer id="wyk-hu-UIH">
+                    <connections>
+                        <action selector="handleRotate:" destination="BYZ-38-t0r" id="RgW-B0-GAB"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="27c-Ee-AVM"/>
+                    </connections>
+                </rotationGestureRecognizer>
+                <pinchGestureRecognizer id="PJF-fx-pVP">
+                    <connections>
+                        <action selector="handlePinch:" destination="BYZ-38-t0r" id="zyo-LL-GhT"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="03M-oM-INf"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="bBn-bq-Kox">
+                    <connections>
+                        <action selector="handleLongPress:" destination="BYZ-38-t0r" id="o2V-hv-e92"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="J3N-OE-4cK"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="tinyrick" width="600" height="800"/>
+    </resources>
 </document>

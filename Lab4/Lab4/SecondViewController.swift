@@ -21,6 +21,7 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var yellow: UIView!
     
     
+    
     @IBOutlet weak var submit: UIButton!
     
     var views = [UIView]()
@@ -55,8 +56,7 @@ class SecondViewController: UIViewController {
         }
         
         let viewSelect = sender.view
-        //colorSelect = (viewSelect?.restorationIdentifier)!
-        //print(colorSelect)
+
         viewSelect?.layer.borderWidth = 3
         viewSelect?.layer.borderColor = UIColor.black.cgColor
     
@@ -64,15 +64,11 @@ class SecondViewController: UIViewController {
     }
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         
         let destinationVC = segue.destination as! FirstViewController
-        
         destinationVC.view.backgroundColor = colorSelect
+        
     }
     
 

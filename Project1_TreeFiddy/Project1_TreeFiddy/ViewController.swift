@@ -35,6 +35,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         super.viewDidLoad()
         
+        if let item = item {
+            navigationItem.title = item.name
+            nameField.text = item.name
+            typeField.text = item.type
+            amountField.text = String(item.amount)
+        }
+        
         addButton.tintColor = UIColor.white
         addButton.backgroundColor = UIColor.lightGray
         addButton.layer.cornerRadius = 5
