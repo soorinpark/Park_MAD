@@ -17,8 +17,8 @@ class Data: NSObject, NSCoding {
     var amount: Int
     
     // MARK: Archiving Paths
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("data")
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("data")
     
     // MARK: Types
     struct PropertyKey {
@@ -44,20 +44,20 @@ class Data: NSObject, NSCoding {
     }
     
     // MARK: NSCoding
-    func encodeWithCoder(aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
         
-        aCoder.encodeObject(type, forKey: PropertyKey.typeKey)
-        aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
-        aCoder.encodeInteger(amount, forKey: PropertyKey.amountKey)
+        aCoder.encode(type, forKey: PropertyKey.typeKey)
+        aCoder.encode(name, forKey: PropertyKey.nameKey)
+        aCoder.encode(amount, forKey: PropertyKey.amountKey)
 
         
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         
-        let type = aDecoder.decodeObjectForKey(PropertyKey.typeKey) as! String
-        let name = aDecoder.decodeObjectForKey(PropertyKey.nameKey) as! String
-        let amount = aDecoder.decodeIntegerForKey(PropertyKey.amountKey)
+        let type = aDecoder.decodeObject(forKey: PropertyKey.typeKey) as! String
+        let name = aDecoder.decodeObject(forKey: PropertyKey.nameKey) as! String
+        let amount = aDecoder.decodeInteger(forKey: PropertyKey.amountKey)
         
         // Must call designated initializer.
         self.init(type: type, name: name, amount: amount)

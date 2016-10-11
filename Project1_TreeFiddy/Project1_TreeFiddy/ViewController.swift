@@ -35,12 +35,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         super.viewDidLoad()
         
-        addButton.tintColor = UIColor.whiteColor()
-        addButton.backgroundColor = UIColor.lightGrayColor()
+        addButton.tintColor = UIColor.white
+        addButton.backgroundColor = UIColor.lightGray
         addButton.layer.cornerRadius = 5
         
-        let typePickerView = UIPickerView(frame: CGRectMake(0, 200, view.frame.width, 250))
-        let freqPickerView = UIPickerView(frame: CGRectMake(0, 200, view.frame.width, 250))
+        let typePickerView = UIPickerView(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 250))
+        let freqPickerView = UIPickerView(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 250))
         
         typePickerView.delegate = self
         freqPickerView.delegate = self
@@ -52,22 +52,22 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         freqField.inputView = freqPickerView
         
         let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.Default
-        toolBar.translucent = true
-        toolBar.tintColor = UIColor.blueColor()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.blue
         toolBar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ViewController.donePicker))
-        doneButton.tintColor = UIColor.darkGrayColor()
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ViewController.donePicker))
+        doneButton.tintColor = UIColor.darkGray
         
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ViewController.donePicker))
-        cancelButton.tintColor = UIColor.darkGrayColor()
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ViewController.donePicker))
+        cancelButton.tintColor = UIColor.darkGray
         
         
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        toolBar.userInteractionEnabled = true
+        toolBar.isUserInteractionEnabled = true
         
         typeField.inputAccessoryView = toolBar
         freqField.inputAccessoryView = toolBar
@@ -75,13 +75,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool // called when 'return' key pressed. return false to ignore.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool // called when 'return' key pressed. return false to ignore.
     {
         textField.resignFirstResponder()
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         updateAmount()
     }
     
@@ -102,11 +102,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         super.didReceiveMemoryWarning()
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == 1 {
             return typeData.count
         }
@@ -117,7 +117,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         return 0
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView.tag == 1 {
             return typeData[row]
         }
@@ -128,7 +128,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         return nil
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView.tag == 1 {
             typeField.text = typeData[row]
         }
@@ -138,15 +138,15 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         }
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
         
         if (typeField.text == "" || nameField.text == "" || amountField.text == "" || freqField.text == "") {
             let alertController = UIAlertController(title: "Error", message:
-                "You have not entered in one or more fields. Please go back and fill each field.", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-            alertController.view.tintColor = UIColor.darkGrayColor()
+                "You have not entered in one or more fields. Please go back and fill each field.", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+            alertController.view.tintColor = UIColor.darkGray
             
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
             return false
             
@@ -157,12 +157,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if addButton === sender {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //if (addButton === sender) {
             
             let type = typeField.text!
             var amount = amountField.text
-            var amount1 = amount!.stringByReplacingOccurrencesOfString("$", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            var amount1 = amount!.replacingOccurrences(of: "$", with: "", options: NSString.CompareOptions.literal, range: nil)
 
             let amount2 = Int(amount1)
             
@@ -196,7 +196,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             
             item = Data(type: type, name: name, amount: newAmount)
             
-        }
+        //}
     }
     
 }

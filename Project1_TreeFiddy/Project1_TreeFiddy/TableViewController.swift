@@ -45,7 +45,7 @@ class TableViewController: UITableViewController {
         
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = editButtonItem()
+        navigationItem.leftBarButtonItem = editButtonItem
 
     }
 
@@ -53,12 +53,12 @@ class TableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return sectionTitles.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
         if (section == 0) {
@@ -74,7 +74,7 @@ class TableViewController: UITableViewController {
         
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         if section < sectionTitles.count {
             return sectionTitles[section]
@@ -83,35 +83,37 @@ class TableViewController: UITableViewController {
         return nil
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellIdentifier = "tableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TableViewCell
 
-        let item = data[indexPath.section][indexPath.row]
+        let item = data[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         
-        let currencyFormatter = NSNumberFormatter()
-        currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle=NumberFormatter.Style.currency
+        
+        var amount = item.amount as NSNumber
         
         cell.label.text = item.name
-        cell.cellAmount.text = currencyFormatter.stringFromNumber(Int(item.amount))
+        cell.cellAmount.text = currencyFormatter.string(from: amount)
 
         return cell
     }
     
-    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if let headerView = view as? UITableViewHeaderFooterView, textLabel = headerView.textLabel {
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView, let textLabel = headerView.textLabel {
             
             let newSize = CGFloat(17)
             textLabel.font = UIFont(name: "KannadaSangamMN", size: newSize)
-            textLabel.tintColor = UIColor.whiteColor()
+            textLabel.tintColor = UIColor.white
         }
     }
     
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView
     {
-        let headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 30))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
         
         if (section == 0) {
             headerView.backgroundColor = UIColor(red: 211/255, green: 239/255, blue: 200/255, alpha: 1)
@@ -132,7 +134,7 @@ class TableViewController: UITableViewController {
         headerLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
         let newSize = CGFloat(15)
         headerLabel.font = UIFont(name: "KannadaSangamMN", size: newSize)
-        headerLabel.textColor = UIColor.darkGrayColor()
+        headerLabel.textColor = UIColor.darkGray
         headerView.addSubview(headerLabel)
 
 
@@ -140,61 +142,61 @@ class TableViewController: UITableViewController {
         return headerView
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 35
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
             
-            data[indexPath.section].removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            data[(indexPath as NSIndexPath).section].remove(at: (indexPath as NSIndexPath).row)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
             saveData()
             updateTotal()
         }
         
-        else if editingStyle == .Insert {
+        else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
     
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         self.tableView.setEditing(editing, animated: animated)
     }
     
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
-    @IBAction func addToTable(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? ViewController, item = sourceViewController.item {
+    @IBAction func addToTable(_ sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? ViewController, let item = sourceViewController.item {
 
             var sectionNum: Int = 0
-            var newIndexPath = NSIndexPath(forRow:0, inSection: 0)
+            var newIndexPath = IndexPath(row:0, section: 0)
             
             if (item.type == "Income") {
                 
                 sectionNum = 0
-                newIndexPath = NSIndexPath(forRow: data[0].count, inSection: sectionNum)
+                newIndexPath = IndexPath(row: data[0].count, section: sectionNum)
 
             }
             
             else if (item.type == "Bills") {
                 sectionNum = 1
-                newIndexPath = NSIndexPath(forRow: data[1].count, inSection: sectionNum)
+                newIndexPath = IndexPath(row: data[1].count, section: sectionNum)
 
             }
             
             else {
             
                 sectionNum = 2
-                newIndexPath = NSIndexPath(forRow: data[2].count, inSection: sectionNum)
+                newIndexPath = IndexPath(row: data[2].count, section: sectionNum)
 
             }
             
@@ -203,7 +205,7 @@ class TableViewController: UITableViewController {
             saveData()
             
             tableView.beginUpdates()
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            tableView.insertRows(at: [newIndexPath], with: UITableViewRowAnimation.fade)
             tableView.endUpdates()
             
             updateTotal()
@@ -245,12 +247,16 @@ class TableViewController: UITableViewController {
     
         var total: Int = income - expense
     
-        let currencyFormatter = NSNumberFormatter()
-        currencyFormatter.numberStyle=NSNumberFormatterStyle.CurrencyStyle
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle=NumberFormatter.Style.currency
     
-        incomeTotal.text = currencyFormatter.stringFromNumber(income)
-        expenseTotal.text = currencyFormatter.stringFromNumber(expense)
-        totalLabel.text = currencyFormatter.stringFromNumber(total)
+        //var income = income as NSNumber
+        //var expense = expense as NSNumber
+        //var total = expense as NSNumber
+        
+        incomeTotal.text = currencyFormatter.string(from: income as NSNumber)
+        expenseTotal.text = currencyFormatter.string(from: expense as NSNumber)
+        totalLabel.text = currencyFormatter.string(from: total as NSNumber)
         
         var totalView = self.view.viewWithTag(1)! as UIView
         
@@ -272,25 +278,25 @@ class TableViewController: UITableViewController {
     // MARK: NSCoding
 
     func saveData() {
-        let saved = NSKeyedArchiver.archiveRootObject(data, toFile: Data.ArchiveURL.path!)
+        let saved = NSKeyedArchiver.archiveRootObject(data, toFile: Data.ArchiveURL.path)
         if !saved {
             let alertController = UIAlertController(title: "Error", message:
-                "Could not save data. Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+                "Could not save data. Please try again.", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
             alertController.view.tintColor = UIColor(red: 242/255, green: 199/255, blue: 198/255, alpha: 1)
             
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
     func loadData() -> [[Data]]? {
-        let loaded = NSKeyedUnarchiver.unarchiveObjectWithFile(Data.ArchiveURL.path!) as? [[Data]]
+        let loaded = NSKeyedUnarchiver.unarchiveObject(withFile: Data.ArchiveURL.path) as? [[Data]]
         if (loaded == nil) {
             let alertController = UIAlertController(title: "Error", message:
-                "Could not load data or there was no data to load.", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-            alertController.view.tintColor = UIColor.darkGrayColor()
-            self.presentViewController(alertController, animated: true, completion: nil)
+                "Could not load data or there was no data to load.", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+            alertController.view.tintColor = UIColor.darkGray
+            self.present(alertController, animated: true, completion: nil)
 
         }
         return loaded
