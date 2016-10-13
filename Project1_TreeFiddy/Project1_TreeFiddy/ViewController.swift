@@ -165,45 +165,43 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //if (addButton === sender) {
-            
-            let type = typeField.text!
-            var amount = amountField.text
-            var amount1 = amount!.replacingOccurrences(of: "$", with: "", options: NSString.CompareOptions.literal, range: nil)
+        
+        let type = typeField.text!
+        var amount = amountField.text
+        var amount1 = amount!.replacingOccurrences(of: "$", with: "", options: NSString.CompareOptions.literal, range: nil)
 
-            let amount2 = Int(amount1)
+        let amount2 = Int(amount1)
+        
+        let freq = freqField.text!
+        let name = nameField.text!
+        
+        var newAmount: Int = 0
+        
+        if (freq == "week") {
+            newAmount = amount2! * 4
+        }
+        
+        else if (freq == "bi-week") {
+            newAmount = amount2!*2
+        }
+        
+        else if (freq == "month") {
+            newAmount = amount2!
+        }
+        else if (freq == "bi-month") {
+        
+            newAmount = amount2!/2
+        }
+        else if (freq == "6 months") {
+            newAmount = amount2!/6
+        }
+        else if (freq == "year") {
+        
+            newAmount = amount2!/12
+        }
             
-            let freq = freqField.text!
-            let name = nameField.text!
+        item = Data(type: type, name: name, amount: newAmount)
             
-            var newAmount: Int = 0
-            
-            if (freq == "week") {
-                newAmount = amount2! * 4
-            }
-            
-            else if (freq == "bi-week") {
-                newAmount = amount2!*2
-            }
-            
-            else if (freq == "month") {
-                newAmount = amount2!
-            }
-            else if (freq == "bi-month") {
-            
-                newAmount = amount2!/2
-            }
-            else if (freq == "6 months") {
-                newAmount = amount2!/6
-            }
-            else if (freq == "year") {
-            
-                newAmount = amount2!/12
-            }
-            
-            item = Data(type: type, name: name, amount: newAmount)
-            
-        //}
     }
     
 }
