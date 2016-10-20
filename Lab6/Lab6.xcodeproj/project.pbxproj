@@ -12,8 +12,8 @@
 		6A5A67911DA6C2F0002C212E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A5A678F1DA6C2F0002C212E /* Main.storyboard */; };
 		6A5A67931DA6C2F0002C212E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A5A67921DA6C2F0002C212E /* Assets.xcassets */; };
 		6A5A67961DA6C2F0002C212E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A5A67941DA6C2F0002C212E /* LaunchScreen.storyboard */; };
+		6A62BE441DB953B100EA15E4 /* tinyrick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A62BE431DB953B100EA15E4 /* tinyrick.mp3 */; };
 		6A67047C1DA6CED700ED3256 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A67047B1DA6CED700ED3256 /* AVFoundation.framework */; };
-		6A6704801DA6D2E500ED3256 /* tinyrick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A67047F1DA6D2E500ED3256 /* tinyrick.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +24,8 @@
 		6A5A67921DA6C2F0002C212E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A5A67951DA6C2F0002C212E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A5A67971DA6C2F0002C212E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A62BE431DB953B100EA15E4 /* tinyrick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tinyrick.mp3; sourceTree = "<group>"; };
 		6A67047B1DA6CED700ED3256 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		6A67047F1DA6D2E500ED3256 /* tinyrick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = tinyrick.mp3; path = ../../../../../Downloads/tinyrick.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +60,8 @@
 		6A5A678A1DA6C2F0002C212E /* Lab6 */ = {
 			isa = PBXGroup;
 			children = (
-				6A67047F1DA6D2E500ED3256 /* tinyrick.mp3 */,
 				6A5A678B1DA6C2F0002C212E /* AppDelegate.swift */,
+				6A62BE431DB953B100EA15E4 /* tinyrick.mp3 */,
 				6A5A678D1DA6C2F0002C212E /* ViewController.swift */,
 				6A5A678F1DA6C2F0002C212E /* Main.storyboard */,
 				6A5A67921DA6C2F0002C212E /* Assets.xcassets */,
@@ -142,7 +142,7 @@
 				6A5A67961DA6C2F0002C212E /* LaunchScreen.storyboard in Resources */,
 				6A5A67931DA6C2F0002C212E /* Assets.xcassets in Resources */,
 				6A5A67911DA6C2F0002C212E /* Main.storyboard in Resources */,
-				6A6704801DA6D2E500ED3256 /* tinyrick.mp3 in Resources */,
+				6A62BE441DB953B100EA15E4 /* tinyrick.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
