@@ -38,13 +38,14 @@ public class MainActivity extends AppCompatActivity {
     private final static String API_KEY = "546e79849610632a56e3ea49a776f1ba";
 
     private String[] categoryArray;
+    private String[] stateArray;
     private Integer zipCode = 80302;
     private String cityState;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         this.categoryArray = new String[] {
@@ -66,9 +67,67 @@ public class MainActivity extends AppCompatActivity {
                 "Other"
         };
         Spinner categorySpinner = (Spinner) findViewById(R.id.beerCategory);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, categoryArray);
-        categorySpinner.setAdapter(adapter);
+        categorySpinner.setAdapter(categoryAdapter);
+
+        this.stateArray = new String[] {
+                "",
+                "Alabama",
+                "Arkansas",
+                "Arizona",
+                "Alaska",
+                "California",
+                "Colorado",
+                "Connecticut",
+                "Delaware",
+                "Florida",
+                "Georgia",
+                "Hawaii",
+                "Idaho",
+                "Illinois",
+                "Indiana",
+                "Iowa",
+                "Kansas",
+                "Kentucky",
+                "Louisiana",
+                "Maine",
+                "Maryland",
+                "Massachusetts",
+                "Michigan",
+                "Minnesota",
+                "Mississippi",
+                "Missouri",
+                "Montana",
+                "Nebraska",
+                "Nevada",
+                "New Hampshire",
+                "New Jersey",
+                "New Mexico",
+                "New York",
+                "North Carolina",
+                "North Dakota",
+                "Ohio",
+                "Oklahoma",
+                "Oregon",
+                "Pennsylvania",
+                "Rhode Island",
+                "South Carolina",
+                "South Dakota",
+                "Tennessee",
+                "Texas",
+                "Utah",
+                "Vermont",
+                "Virginia",
+                "Washington",
+                "West Virginia",
+                "Wisconsin",
+                "Wyoming"
+        };
+        Spinner stateSpinner = (Spinner) findViewById(R.id.stateSpinner);
+        ArrayAdapter<String> stateAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, stateArray);
+        stateSpinner.setAdapter(stateAdapter);
 
 
         Typeface headFont = Typeface.createFromAsset(getAssets(), "fonts/Bungee-Regular.ttf");
@@ -78,19 +137,18 @@ public class MainActivity extends AppCompatActivity {
         TextView titleTextView = (TextView) findViewById(R.id.textView);
         titleTextView.setTypeface(headFont);
 
-        //I like...
         TextView likeTextView = (TextView) findViewById(R.id.textView2);
-//        final EditText likeEditText = (EditText) findViewById(R.id.editText);
         likeTextView.setTypeface(headFont);
-//        likeEditText.setTypeface(bodyFont);
 
-        //I live in...
-        TextView liveTextView = (TextView) findViewById(R.id.textView3);
-        EditText liveEditText = (EditText) findViewById(R.id.editText2);
+        TextView liveTextView = (TextView) findViewById(R.id.liveTextView);
         liveTextView.setTypeface(headFont);
-        liveEditText.setTypeface(bodyFont);
 
-        //button
+        EditText cityEditText = (EditText) findViewById(R.id.cityEditText);
+        cityEditText.setTypeface(bodyFont);
+
+        EditText zipEditText = (EditText) findViewById(R.id.zipEditText);
+        zipEditText.setTypeface(bodyFont);
+
         Button drinkButton = (Button) findViewById(R.id.drinkButton);
         drinkButton.setTypeface(bodyFont);
 
