@@ -13,13 +13,13 @@ public class BreweryList {
     @SerializedName("totalResults")
     private int totalResults;
     @SerializedName("data")
-    private List<Brewery> dataList;
+    private List<Brewery> brewData;
 
     public int getTotalResults() {
         return totalResults;
     }
 
     public List<Brewery> getDataList() {
-        return dataList;
+        return brewData;
     }
 }
