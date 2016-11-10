@@ -4,20 +4,32 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText ageText;
     private ImageView ageIcon;
+    private String[] ethArray;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ageText = (EditText) findViewById(R.id.editText3);
+        this.ethArray = new String[] {
+                "American Indian or Alaska Native", "Asian", "Black or African American", "Native Hawaiian or Other Pacific Islander", "White", "Hispanic or Latino"
+        };
+        Spinner s = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, ethArray);
+        s.setAdapter(adapter);
+
+        ageText = (EditText) findViewById(R.id.editText2);
         ageIcon = (ImageView) findViewById(R.id.imageView);
 
 
