@@ -5,6 +5,7 @@ package com.example.soorinpark.beerbelly.adapter;
  */
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,14 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
             brewCityStateZip = (TextView) v.findViewById(R.id.brewery_city_state_zipcode);
             brewPhone = (TextView) v.findViewById(R.id.brewery_phone);
             brewWeb = (TextView) v.findViewById(R.id.brewery_web);
+
+            Typeface headFont = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Bungee-Regular.ttf");
+            Typeface bodyFont = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
+            this.brewName.setTypeface(headFont);
+            this.brewStreet.setTypeface(bodyFont);
+            this.brewCityStateZip.setTypeface(bodyFont);
+            this.brewPhone.setTypeface(bodyFont);
+            this.brewWeb.setTypeface(bodyFont);
         }
     }
 
@@ -60,6 +69,7 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
 
     @Override
     public void onBindViewHolder(BreweryViewHolder holder, final int position) {
+
         holder.brewName.setText(brews.get(position).getName());
         holder.brewStreet.setText(brews.get(position).getStreet());
 

@@ -14,7 +14,7 @@
         android:layout_gravity="top"
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/brewery_street"
