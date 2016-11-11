@@ -1,4 +1,4 @@
-package com.example.soorinpark.beerbelly;
+package com.example.soorinpark.beerbelly.activity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.soorinpark.beerbelly.R;
 
 import java.io.IOException;
 

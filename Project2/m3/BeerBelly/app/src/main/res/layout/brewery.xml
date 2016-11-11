@@ -4,50 +4,45 @@
     android:layout_height="wrap_content"
     android:id="@+id/brewery_layout"
     android:minHeight="80dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/brewery_name"
         android:layout_width="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:paddingRight="16dp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/brewery_street"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="16dp"
         android:textColor="@color/colorPrimary"
-        android:textSize="12dp"/>
+        android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/brewery_city_state_zipcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="16dp"
         android:textColor="@color/colorPrimary"
-        android:textSize="12dp"/>
+        android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/brewery_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="16dp"
         android:textColor="@color/colorPrimary"
-        android:textSize="12dp"/>
+        android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/brewery_web"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="16dp"
         android:textColor="@color/colorAccent"
-        android:textSize="12dp"
+        android:textSize="12sp"
         android:layout_marginBottom="10dp"/>
 
 </LinearLayout>

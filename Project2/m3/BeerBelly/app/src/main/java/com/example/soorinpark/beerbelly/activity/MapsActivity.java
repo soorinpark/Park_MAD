@@ -1,8 +1,9 @@
-package com.example.soorinpark.beerbelly;
+package com.example.soorinpark.beerbelly.activity;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.example.soorinpark.beerbelly.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
