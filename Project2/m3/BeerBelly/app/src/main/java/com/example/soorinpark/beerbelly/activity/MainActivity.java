@@ -170,6 +170,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(MainActivity.this, BrewActivity.class);
+        intent.putExtra("zipcode", zipcodeText);
+        intent.putExtra("city", cityText);
+        intent.putExtra("state", stateText);
         startActivity(intent);
     }
 

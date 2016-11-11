@@ -45,15 +45,14 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
         }
     }
 
-    public BreweriesAdapter(List<Brewery> movies, int rowLayout, Context context) {
-        this.brews = movies;
+    public BreweriesAdapter(List<Brewery> brews, int rowLayout, Context context) {
+        this.brews = brews;
         this.rowLayout = rowLayout;
         this.context = context;
     }
 
     @Override
-    public BreweriesAdapter.BreweryViewHolder onCreateViewHolder(ViewGroup parent,
-                                                            int viewType) {
+    public BreweriesAdapter.BreweryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
         return new BreweryViewHolder(view);
     }
@@ -82,6 +81,7 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
         }
         else {
             holder.brewWeb.setText(brews.get(position).getWebsite());
+//            holder.brewWeb.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
     }
