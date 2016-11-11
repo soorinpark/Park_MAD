@@ -281,8 +281,7 @@ public class MainActivity extends AppCompatActivity {
                 "Wyoming"
         };
         stateSpinner = (Spinner) findViewById(R.id.stateSpinner);
-        ArrayAdapter<String> stateAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, stateArray);
+        ArrayAdapter<String> stateAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, stateArray);
         stateSpinner.setAdapter(stateAdapter);
 
 

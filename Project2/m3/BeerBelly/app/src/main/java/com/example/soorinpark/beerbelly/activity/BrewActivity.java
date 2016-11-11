@@ -8,6 +8,8 @@ import android.util.Log;
 
 import com.example.soorinpark.beerbelly.R;
 import com.example.soorinpark.beerbelly.adapter.BreweriesAdapter;
+import com.example.soorinpark.beerbelly.model.Beer;
+import com.example.soorinpark.beerbelly.model.BeerList;
 import com.example.soorinpark.beerbelly.model.Brewery;
 import com.example.soorinpark.beerbelly.model.BreweryList;
 import com.example.soorinpark.beerbelly.rest.ApiClient;
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,15 +44,17 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
     private String stateValue = null;
 
     private GoogleMap mMap;
+    private RecyclerView recyclerView;
 
     private List<Brewery> brews;
+    private List<List<Beer>> beers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brewery_list);
 
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.brewery_recycler_layout);
+        recyclerView = (RecyclerView) findViewById(R.id.brewery_recycler_layout);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -65,7 +70,7 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         Log.d("zcs", zipValue + "-" + cityValue + "-" + stateValue);
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        final ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
         if (!zipValue.matches("")) {
             Call<BreweryList> call = apiService.getBrewZip(API_KEY, zipValue);
@@ -73,6 +78,7 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
                 @Override
                 public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
                     brews = response.body().getDataList();
+                    getBeerInfo();
                     addMarker();
                     recyclerView.setAdapter(new BreweriesAdapter(brews, R.layout.brewery, getApplicationContext()));
                     Log.d(TAG, "Number of breweries received: " + brews.size());
@@ -91,6 +97,7 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
                 @Override
                 public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
                     brews = response.body().getDataList();
+                    getBeerInfo();
                     addMarker();
                     recyclerView.setAdapter(new BreweriesAdapter(brews, R.layout.brewery, getApplicationContext()));
                     Log.d(TAG, "Number of breweries received: " + brews.size());
@@ -108,7 +115,6 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
@@ -129,8 +135,26 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }
 
-    public void findBeer() {
+    public void getBeerInfo() {
+        final ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        for(int i=0; i < brews.size(); i++) {
+            String brewId = brews.get(i).getBreweryId().toString();
+            Log.d("id", brewId);
+            Call<BeerList> call = apiService.getBeerFromBrew(brewId, API_KEY);
+            call.enqueue(new Callback<BeerList>() {
+                @Override
+                public void onResponse(Call<BeerList> call, Response<BeerList> response) {
+                    List<Beer> beerTemp = response.body().getBeerList();
+                    beers.add(beerTemp);
+                    Log.d(TAG, "Number of beers received: " + beers.size());
+                }
 
+                @Override
+                public void onFailure(Call<BeerList> call, Throwable t) {
+                    Log.e(TAG, t.toString());
+                }
+            });
+        }
     }
 
 }

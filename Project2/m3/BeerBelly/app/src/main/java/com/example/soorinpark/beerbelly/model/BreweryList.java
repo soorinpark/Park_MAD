@@ -15,15 +15,9 @@ public class BreweryList {
     @SerializedName("data")
     private List<Brewery> brewData;
 
-    public int getTotalResults() {
-        return totalResults;
-    }
-
+    public int getTotalResults() { return totalResults; }
     public List<Brewery> getDataList() {
         return brewData;
-    }
-    public void setResults(List<Brewery> brewData) {
-        this.brewData = brewData;
     }
 
 }
