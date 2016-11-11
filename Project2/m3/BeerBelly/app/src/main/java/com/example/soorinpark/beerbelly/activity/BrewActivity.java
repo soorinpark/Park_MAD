@@ -26,6 +26,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.HEAD;
 
 /**
  * Created by soorinpark on 11/10/16.
@@ -49,15 +50,13 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brewery_list);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map_fragment);
-        mapFragment.getMapAsync(this);
-
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.brewery_recycler_layout);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_fragment);
+        mapFragment.getMapAsync(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -67,12 +66,11 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         Log.d("zcs", zipValue + "-" + cityValue + "-" + stateValue);
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
         if (!zipValue.matches("")) {
-            Log.d("zip", "in zip");
             Call<BreweryList> call = apiService.getBrewZip(API_KEY, zipValue);
             call.enqueue(new Callback<BreweryList>() {
-
                 @Override
                 public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
                     brews = response.body().getDataList();
@@ -90,11 +88,8 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         else {
-            Log.d("city", "in city");
-
             Call<BreweryList> call = apiService.getBrewCityState(API_KEY, cityValue, stateValue);
             call.enqueue(new Callback<BreweryList>() {
-
                 @Override
                 public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
                     brews = response.body().getDataList();
@@ -116,7 +111,6 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-//         Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
