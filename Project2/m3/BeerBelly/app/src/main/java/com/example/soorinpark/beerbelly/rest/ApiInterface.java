@@ -15,7 +15,7 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
     @GET("locations")
-    Call<BreweryList> getLocationBrews(@Query("key") String apiKey, @Query("postalCode") Integer zipCode);
+    Call<BreweryList> getLocationBrews(@Query("key") String apiKey, @Query("postalCode") String zipCode);
 
 //    @GET("movie/{id}")
 //    Call<BreweryList> getMovieDetails(@Path("id") int id, @Query("api_key") String apiKey);

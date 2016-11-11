@@ -12,16 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.soorinpark.beerbelly.model.Brewery;
-import com.example.soorinpark.beerbelly.model.BreweryList;
-import com.example.soorinpark.beerbelly.rest.ApiClient;
-import com.example.soorinpark.beerbelly.rest.ApiInterface;
+import java.io.IOException;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by soorinpark on 11/8/16.
@@ -33,22 +25,29 @@ overlapping brewery as well as the beer type.
 
 public class MainActivity extends AppCompatActivity {
 
-    String API = "http://api.brewerydb.com/v2/"; //BASE URL
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private final static String API_KEY = "546e79849610632a56e3ea49a776f1ba";
+
 
     private String[] categoryArray;
     private String[] stateArray;
-    private Integer zipCode = 80302;
-    private String cityState;
 
+    private String state;
+    private Integer categoryID;
+    private Boolean currentLocation;
+
+    private EditText city;
+    private EditText zipcode;
+    private Spinner stateSpinner;
+
+    private String cityText;
+    private String zipcodeText;
+    private String stateText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.categoryArray = new String[] {
+        this.categoryArray = new String[]{
                 "",
                 "British Origin Ales",
                 "Irish Origin Ales",
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, categoryArray);
         categorySpinner.setAdapter(categoryAdapter);
 
-        this.stateArray = new String[] {
+        this.stateArray = new String[]{
                 "",
                 "Alabama",
                 "Arkansas",
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 "Wisconsin",
                 "Wyoming"
         };
-        Spinner stateSpinner = (Spinner) findViewById(R.id.stateSpinner);
+        stateSpinner = (Spinner) findViewById(R.id.stateSpinner);
         ArrayAdapter<String> stateAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, stateArray);
         stateSpinner.setAdapter(stateAdapter);
@@ -143,38 +142,33 @@ public class MainActivity extends AppCompatActivity {
         TextView liveTextView = (TextView) findViewById(R.id.liveTextView);
         liveTextView.setTypeface(headFont);
 
-        EditText cityEditText = (EditText) findViewById(R.id.cityEditText);
-        cityEditText.setTypeface(bodyFont);
+        city = (EditText) findViewById(R.id.cityEditText);
+        city.setTypeface(bodyFont);
 
-        EditText zipEditText = (EditText) findViewById(R.id.zipEditText);
-        zipEditText.setTypeface(bodyFont);
+        zipcode = (EditText) findViewById(R.id.zipEditText);
+        zipcode.setTypeface(bodyFont);
 
         Button drinkButton = (Button) findViewById(R.id.drinkButton);
         drinkButton.setTypeface(bodyFont);
 
     }
 
-    public void changeView(View view)
-    {
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+    public void changeView(View view) throws IOException {
 
-        Call<BreweryList> call = apiService.getLocationBrews(API_KEY, zipCode);
-        call.enqueue(new Callback<BreweryList>() {
-            @Override
-            public void onResponse(Call<BreweryList>call, Response<BreweryList> response) {
-                List<Brewery> numBrews = response.body().getDataList();
-                Log.d(TAG, "Number of breweries received: " + numBrews.size());
-            }
+        cityText = city.getText().toString();
+        zipcodeText = zipcode.getText().toString();
+        stateText = stateSpinner.getSelectedItem().toString();
 
-            @Override
-            public void onFailure(Call<BreweryList>call, Throwable t) {
-                // Log error here since request failed
-                Log.e(TAG, t.toString());
-            }
-        });
+        if (cityText.matches("") && zipcodeText.matches("") && stateText.matches("")) {
+            Log.d("current", "current location");
+        }
 
-        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        else {
+            currentLocation = false;
+        }
+
+        Intent intent = new Intent(MainActivity.this, BrewActivity.class);
         startActivity(intent);
     }
+
 }
