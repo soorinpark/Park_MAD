@@ -22,4 +22,8 @@ public class BreweryList {
     public List<Brewery> getDataList() {
         return brewData;
     }
+    public void setResults(List<Brewery> brewData) {
+        this.brewData = brewData;
+    }
+
 }

@@ -1,10 +1,11 @@
 package com.example.soorinpark.beerbelly.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -160,16 +161,48 @@ public class MainActivity extends AppCompatActivity {
         cityText = city.getText().toString();
         zipcodeText = zipcode.getText().toString();
         stateText = stateSpinner.getSelectedItem().toString();
-
-        if (cityText.matches("") && zipcodeText.matches("") && stateText.matches("")) {
-            Log.d("current", "current location");
-        }
-
-        else {
-            currentLocation = false;
-        }
-
         Intent intent = new Intent(MainActivity.this, BrewActivity.class);
+
+        if (!zipcodeText.matches("")) {
+            intent.putExtra("zipcode",zipcodeText);
+        }
+        else {
+            if (cityText.matches("") && stateText.matches("")) {
+                intent.putExtra("zipcode","111111"); //temp
+            }
+            else if (cityText.matches("") && !stateText.matches("")) {
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("Error");
+                alertDialog.setMessage("Please enter in both city and the state values.");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                                //dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
+            else if (!cityText.matches("") && stateText.matches("")) {
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("Error");
+                alertDialog.setMessage("Please enter in both city and the state values.");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                                //dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
+            else {
+                intent.putExtra("city",cityText);
+                intent.putExtra("state", stateText);
+
+            }
+        }
+
         startActivity(intent);
     }
 

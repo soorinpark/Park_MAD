@@ -34,7 +34,7 @@
         android:id="@+id/brewery_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
         android:textSize="12sp"/>
 
     <TextView
@@ -42,7 +42,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
-        android:textSize="12sp"
-        android:layout_marginBottom="10dp"/>
+        android:textSize="12sp"/>
 
 </LinearLayout>

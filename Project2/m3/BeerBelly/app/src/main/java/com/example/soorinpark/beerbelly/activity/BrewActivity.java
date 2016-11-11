@@ -37,37 +37,80 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
 
+    private String zipcodeValue = null;
+    private String cityValue = null;
+    private String stateValue = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brewery_list);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map_fragment);
-        mapFragment.getMapAsync(this);
-
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.brewery_recycler_layout);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_fragment);
+        mapFragment.getMapAsync(this);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            if (extras.containsKey("city")) {
+                cityValue = extras.getString("city");
+            }
+
+            if (extras.containsKey("state")) {
+                stateValue = extras.getString("state");
+            }
+
+            if (extras.containsKey("zipcode")) {
+                zipcodeValue = extras.getString("zipcode");
+            }
+        }
+
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<BreweryList> call = apiService.getLocationBrews(API_KEY, "80302");
-        call.enqueue(new Callback<BreweryList>() {
+        if (zipcodeValue != null) {
 
-            @Override
-            public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
-                List<Brewery> brews = response.body().getDataList();
-                recyclerView.setAdapter(new BreweriesAdapter(brews, R.layout.brewery, getApplicationContext()));
-                Log.d(TAG, "Number of breweries received: " + brews.size());
-            }
+            Call<BreweryList> call = apiService.getWithZipcode(API_KEY, "80302");
 
-            @Override
-            public void onFailure(Call<BreweryList> call, Throwable t) {
-                // Log error here since request failed
-                Log.e(TAG, t.toString());
-            }
-        });
+            call.enqueue(new Callback<BreweryList>() {
+
+                @Override
+                public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
+                    List<Brewery> brews = response.body().getDataList();
+                    recyclerView.setAdapter(new BreweriesAdapter(brews, R.layout.brewery, getApplicationContext()));
+                    Log.d(TAG, "Number of breweries received: " + brews.size());
+                }
+
+                @Override
+                public void onFailure(Call<BreweryList> call, Throwable t) {
+                    // Log error here since request failed
+                    Log.e(TAG, t.toString());
+                }
+            });
+        }
+        else {
+            Call<BreweryList> call = apiService.getWithCityState(API_KEY, cityValue, stateValue);
+            call.enqueue(new Callback<BreweryList>() {
+                @Override
+                public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
+                    List<Brewery> brews = response.body().getDataList();
+                    recyclerView.setAdapter(new BreweriesAdapter(brews, R.layout.brewery, getApplicationContext()));
+                    Log.d(TAG, "Number of breweries received: " + brews.size());
+                }
+
+                @Override
+                public void onFailure(Call<BreweryList> call, Throwable t) {
+                    // Log error here since request failed
+                    Log.e(TAG, t.toString());
+                }
+            });
+        }
+
+        Log.d("csz", cityValue + "-" + stateValue + "-" + zipcodeValue);
+
 
     }
 
