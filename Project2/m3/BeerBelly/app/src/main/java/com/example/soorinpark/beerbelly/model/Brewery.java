@@ -26,8 +26,12 @@ public class Brewery {
     private Double latitude;
     @SerializedName("longitude")
     private Double longitude;
+    @SerializedName("breweryId")
+    private String breweryId;
 
-    public Brewery(String name, String street, String city, String state, String zipcode, String phone, String website, Double latitude, Double longitude) {
+    public Brewery(String name, String street, String city, String state,
+                   String zipcode, String phone, String website,
+                   Double latitude, Double longitude, String breweryId) {
         this.name = name;
         this.street = street;
         this.city = city;
@@ -37,6 +41,7 @@ public class Brewery {
         this.website = website;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.breweryId = breweryId;
     }
 
     public String getName() {
@@ -63,9 +68,7 @@ public class Brewery {
         return phone;
     }
 
-    public String getWebsite() {
-        return website;
-    }
+    public String getWebsite() { return website; }
 
     public Double getLatitude() {
         return latitude;
@@ -74,5 +77,7 @@ public class Brewery {
     public Double getLongitude() {
         return longitude;
     }
+
+    public String getBreweryId() { return breweryId; }
 
 }

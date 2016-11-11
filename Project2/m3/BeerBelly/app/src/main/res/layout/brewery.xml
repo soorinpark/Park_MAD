@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/brewery_layout"
     android:minHeight="80dp"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/brewery_name"

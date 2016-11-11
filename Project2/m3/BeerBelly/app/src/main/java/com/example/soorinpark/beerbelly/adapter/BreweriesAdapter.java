@@ -24,7 +24,6 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
     private int rowLayout;
     private Context context;
 
-
     public static class BreweryViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout brewLayout;
@@ -33,7 +32,6 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
         TextView brewCityStateZip;
         TextView brewPhone;
         TextView brewWeb;
-
 
         public BreweryViewHolder(View v) {
             super(v);
@@ -62,6 +60,7 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
 
     @Override
     public BreweriesAdapter.BreweryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
         return new BreweryViewHolder(view);
     }
@@ -91,7 +90,6 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
         }
         else {
             holder.brewWeb.setText(brews.get(position).getWebsite());
-//            holder.brewWeb.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
     }
@@ -100,4 +98,5 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
     public int getItemCount() {
         return brews.size();
     }
+
 }

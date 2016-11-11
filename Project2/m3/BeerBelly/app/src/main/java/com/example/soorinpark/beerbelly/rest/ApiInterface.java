@@ -14,6 +14,7 @@ import retrofit2.http.Query;
 
 
 public interface ApiInterface {
+
     @GET("locations")
     Call<BreweryList> getBrewZip(@Query("key") String apiKey, @Query("postalCode") String zipCode);
 

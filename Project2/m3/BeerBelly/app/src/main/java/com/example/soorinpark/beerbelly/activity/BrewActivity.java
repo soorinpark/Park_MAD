@@ -80,7 +80,6 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
 
                 @Override
                 public void onFailure(Call<BreweryList> call, Throwable t) {
-                    // Log error here since request failed
                     Log.e(TAG, t.toString());
                 }
             });
@@ -127,6 +126,12 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
         LatLngBounds bounds = builder.build();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 200));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }
+
+    public void findBeer() {
+
+    }
+
 }
+
