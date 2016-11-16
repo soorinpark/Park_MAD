@@ -129,7 +129,7 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
                         brews = response.body().getDataList();
-                        if (brews == null) {
+                        if (brews == null ) {
                             AlertDialog alertDialog = new AlertDialog.Builder(BrewActivity.this).create();
                             alertDialog.setTitle("Error");
                             alertDialog.setCancelable(false);
@@ -145,7 +145,24 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
                                     });
                             alertDialog.show();
 
-                        } else {
+                        }
+                        else if (brews.size() > 15) {
+                            AlertDialog alertDialog = new AlertDialog.Builder(BrewActivity.this).create();
+                            alertDialog.setTitle("Error");
+                            alertDialog.setCancelable(false);
+                            alertDialog.setMessage("Too many results. Use zipcode or current location for a smaller search area.");
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            Intent intent = new Intent(BrewActivity.this, MainActivity.class);
+                                            startActivity(intent);
+
+                                        }
+                                    });
+                            alertDialog.show();
+                        }
+                        else {
                             getBeerInfo();
                             addMarker();
                             recyclerView.setAdapter(new BreweriesAdapter(brews, beerStyleId, apiService, R.layout.brewery, getApplicationContext()));
@@ -199,7 +216,24 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
                                         });
                                 alertDialog.show();
 
-                            } else {
+                            }
+                            else if (brews.size() > 15) {
+                                AlertDialog alertDialog = new AlertDialog.Builder(BrewActivity.this).create();
+                                alertDialog.setTitle("Error");
+                                alertDialog.setCancelable(false);
+                                alertDialog.setMessage("Too many results. Use zipcode or current location for a smaller search area.");
+                                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                Intent intent = new Intent(BrewActivity.this, MainActivity.class);
+                                                startActivity(intent);
+
+                                            }
+                                        });
+                                alertDialog.show();
+                            }
+                            else {
                                 getBeerInfo();
                                 addMarker();
                                 recyclerView.setAdapter(new BreweriesAdapter(brews, beerStyleId, apiService, R.layout.brewery, getApplicationContext()));
