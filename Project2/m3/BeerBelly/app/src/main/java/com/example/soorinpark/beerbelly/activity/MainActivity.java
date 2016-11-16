@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String state;
     private Integer categoryID;
-    private Boolean currentLocation;
+    private Boolean currentLocation = false;
 
     private EditText city;
     private EditText zipcode;
@@ -307,6 +307,12 @@ public class MainActivity extends AppCompatActivity {
         Button drinkButton = (Button) findViewById(R.id.drinkButton);
         drinkButton.setTypeface(bodyFont);
 
+        if (cityText == null && stateText == null && zipcodeText == null) {
+            currentLocation = true;
+        }
+        else {
+            currentLocation = false;
+        }
     }
 
     public void changeView(View view) throws IOException {
@@ -319,7 +325,10 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("zipcode", zipcodeText);
         intent.putExtra("city", cityText);
         intent.putExtra("state", stateText);
+        intent.putExtra("current", currentLocation);
         startActivity(intent);
     }
+
+
 
 }
