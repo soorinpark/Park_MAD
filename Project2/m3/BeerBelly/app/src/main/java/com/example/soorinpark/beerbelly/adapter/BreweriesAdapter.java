@@ -27,11 +27,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import static com.example.soorinpark.beerbelly.activity.BrewActivity.API_KEY;
+
 public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.BreweryViewHolder> {
-
-    private final static String API_KEY = "546e79849610632a56e3ea49a776f1ba";
-    //private final static String API_KEY = "a4142602a510290da5c09e9748f79216";
-
 
     private String beerStyleId;
     private ApiInterface apiService;
@@ -109,10 +107,15 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
                 //List<Beer> beerList = beers.get(position);
                 holder.beerIcon.setImageResource(R.drawable.no_beer);
                 for (int i=0; i < beers.size(); i++) {
-                    if (beers.get(i).getBeerStyleId().matches(beerStyleId)) {
-                        //TODO
-                        // make page changes so it's not loading so many on one page
-                        holder.beerIcon.setImageResource(R.drawable.yes_beer);
+                    if (beers.get(i) == null || beerStyleId == null || beers.get(i).getBeerStyleId() == null) {
+                        holder.beerIcon.setImageResource(R.drawable.no_beer);
+                    }
+                    else {
+                        if (beers.get(i).getBeerStyleId().matches(beerStyleId)) {
+                            //TODO
+                            // make page changes so it's not loading so many on one page
+                            holder.beerIcon.setImageResource(R.drawable.yes_beer);
+                        }
                     }
 
                 }

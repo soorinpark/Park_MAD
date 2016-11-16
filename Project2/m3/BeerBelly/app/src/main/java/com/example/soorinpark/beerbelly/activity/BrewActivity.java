@@ -2,6 +2,8 @@ package com.example.soorinpark.beerbelly.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,6 +46,7 @@ import retrofit2.Response;
 
 import static com.google.android.gms.analytics.internal.zzy.B;
 import static com.google.android.gms.analytics.internal.zzy.i;
+import static com.google.android.gms.analytics.internal.zzy.t;
 
 /**
  * Created by soorinpark on 11/10/16.
@@ -51,8 +55,8 @@ import static com.google.android.gms.analytics.internal.zzy.i;
 public class BrewActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private final static String API_KEY = "546e79849610632a56e3ea49a776f1ba";
-    //private final static String API_KEY = "a4142602a510290da5c09e9748f79216";
+    //public final static String API_KEY = "546e79849610632a56e3ea49a776f1ba";
+    public final static String API_KEY = "607feb4f9ed4b2f7c22de45803eb238d";
 
     private String zipValue = null;
     private String cityValue = null;
@@ -96,6 +100,7 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
             stateValue = extras.getString("state");
             useCurrent = extras.getBoolean("current");
             beerStyleId = extras.getString("beerStyle");
+            Log.d("beer", beerStyleId);
         }
 
         final ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
@@ -124,11 +129,28 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
                         brews = response.body().getDataList();
-                        getBeerInfo();
-                        addMarker();
-                        recyclerView.setAdapter(new BreweriesAdapter(brews, beerStyleId, apiService, R.layout.brewery, getApplicationContext()));
-                    }
+                        if (brews == null) {
+                            AlertDialog alertDialog = new AlertDialog.Builder(BrewActivity.this).create();
+                            alertDialog.setTitle("Error");
+                            alertDialog.setCancelable(false);
+                            alertDialog.setMessage("No results");
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            Intent intent = new Intent(BrewActivity.this, MainActivity.class);
+                                            startActivity(intent);
 
+                                        }
+                                    });
+                            alertDialog.show();
+
+                        } else {
+                            getBeerInfo();
+                            addMarker();
+                            recyclerView.setAdapter(new BreweriesAdapter(brews, beerStyleId, apiService, R.layout.brewery, getApplicationContext()));
+                        }
+                    }
                     @Override
                     public void onFailure(Call<BreweryList> call, Throwable t) {
                         Log.e(TAG, t.toString());
@@ -161,9 +183,27 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
                         @Override
                         public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
                             brews = response.body().getDataList();
-                            getBeerInfo();
-                            addMarker();
-                            recyclerView.setAdapter(new BreweriesAdapter(brews, beerStyleId, apiService, R.layout.brewery, getApplicationContext()));
+                            if (brews == null) {
+                                AlertDialog alertDialog = new AlertDialog.Builder(BrewActivity.this).create();
+                                alertDialog.setTitle("Error");
+                                alertDialog.setCancelable(false);
+                                alertDialog.setMessage("No results");
+                                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                Intent intent = new Intent(BrewActivity.this, MainActivity.class);
+                                                startActivity(intent);
+
+                                            }
+                                        });
+                                alertDialog.show();
+
+                            } else {
+                                getBeerInfo();
+                                addMarker();
+                                recyclerView.setAdapter(new BreweriesAdapter(brews, beerStyleId, apiService, R.layout.brewery, getApplicationContext()));
+                            }
                         }
 
                         @Override

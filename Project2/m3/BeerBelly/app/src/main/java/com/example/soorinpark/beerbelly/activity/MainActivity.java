@@ -1,8 +1,12 @@
 package com.example.soorinpark.beerbelly.activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,8 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.soorinpark.beerbelly.R;
-
-import java.io.IOException;
 
 
 /**
@@ -27,13 +29,6 @@ overlapping brewery as well as the beer type.
 
 public class MainActivity extends AppCompatActivity {
 
-
-
-    private String[] styleArray;
-    private String[] stateArray;
-
-    private String state;
-    private Integer categoryID;
     private Boolean currentLocation = false;
 
     private EditText city;
@@ -45,11 +40,15 @@ public class MainActivity extends AppCompatActivity {
     private String zipcodeText;
     private String stateText;
     private String beerStyle;
+    private Handler handler;
+
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         styleSpinner = (Spinner) findViewById(R.id.beerCategory);
         ArrayAdapter styleAdapter = ArrayAdapter.createFromResource(this, R.array.styles, R.layout.spinner_item);
@@ -84,24 +83,51 @@ public class MainActivity extends AppCompatActivity {
 
         Button drinkButton = (Button) findViewById(R.id.drinkButton);
         drinkButton.setTypeface(bodyFont);
-
-
-
-
-
+        drinkButton.setOnClickListener(drinkHandler);
     }
 
-    public void changeView(View view) throws IOException {
+    View.OnClickListener drinkHandler = new View.OnClickListener() {
+        public void onClick(View v) {
 
-        cityText = city.getText().toString();
-        zipcodeText = zipcode.getText().toString();
-        stateText = stateSpinner.getSelectedItem().toString();
-        beerStyle = String.valueOf(styleSpinner.getSelectedItemPosition());
+            cityText = city.getText().toString();
+            zipcodeText = zipcode.getText().toString();
+            if (stateSpinner.getSelectedItemPosition() == 0) {
+                stateText = "";
+            } else {
+                stateText = stateSpinner.getSelectedItem().toString();
+            }
 
+            if (styleSpinner.getSelectedItemPosition() == 0) {
+                beerStyle = "";
+            } else {
+                beerStyle = String.valueOf(styleSpinner.getSelectedItemPosition());
+            }
+
+            if (cityText.matches("") ^ stateText.matches("")) {
+                //Be sure to pass your Activity class, not the Thread
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("Error");
+                alertDialog.setCancelable(false);
+                alertDialog.setMessage("Please enter in both city and state parameters");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+
+            }
+            else {
+                changeView();
+            }
+        }
+    };
+
+    public void changeView() {
         if (cityText.matches("") && stateText.matches("") && zipcodeText.matches("")) {
             currentLocation = true;
-        }
-        else {
+        } else {
             currentLocation = false;
         }
         Log.d("vals1", zipcodeText + "-" + cityText + "-" + stateText + "-" + currentLocation);
@@ -114,7 +140,4 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("beerStyle", beerStyle);
         startActivity(intent);
     }
-
-
-
 }
