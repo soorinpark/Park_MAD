@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -307,12 +308,10 @@ public class MainActivity extends AppCompatActivity {
         Button drinkButton = (Button) findViewById(R.id.drinkButton);
         drinkButton.setTypeface(bodyFont);
 
-        if (cityText == null && stateText == null && zipcodeText == null) {
-            currentLocation = true;
-        }
-        else {
-            currentLocation = false;
-        }
+
+
+
+
     }
 
     public void changeView(View view) throws IOException {
@@ -320,6 +319,14 @@ public class MainActivity extends AppCompatActivity {
         cityText = city.getText().toString();
         zipcodeText = zipcode.getText().toString();
         stateText = stateSpinner.getSelectedItem().toString();
+
+        if (cityText.matches("") && stateText.matches("") && zipcodeText.matches("")) {
+            currentLocation = true;
+        }
+        else {
+            currentLocation = false;
+        }
+        Log.d("vals1", zipcodeText + "-" + cityText + "-" + stateText + "-" + currentLocation);
 
         Intent intent = new Intent(MainActivity.this, BrewActivity.class);
         intent.putExtra("zipcode", zipcodeText);

@@ -69,13 +69,25 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
     @Override
     public void onBindViewHolder(BreweryViewHolder holder, final int position) {
 
-        holder.brewName.setText(brews.get(position).getName());
-        holder.brewStreet.setText(brews.get(position).getStreet());
+        Brewery brewObj = brews.get(position).getBrewery();
 
+        holder.brewName.setText(brewObj.getName());
+
+        if (brewObj.getWebsite() == null) {
+            holder.brewWeb.setVisibility(View.GONE);
+        }
+        else {
+            holder.brewWeb.setText(brewObj.getWebsite());
+        }
+
+        String street = brews.get(position).getStreet();
         String city = brews.get(position).getCity();
         String state = brews.get(position).getState();
         String zip = brews.get(position).getZipcode();
         String csz = city + ", " + state + " " + zip;
+
+
+        holder.brewStreet.setText(street);
         holder.brewCityStateZip.setText(csz);
 
         if (brews.get(position).getPhone() == null) {
@@ -85,12 +97,12 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
             holder.brewPhone.setText(brews.get(position).getPhone());
         }
 
-        if (brews.get(position).getWebsite() == null) {
-            holder.brewWeb.setVisibility(View.GONE);
-        }
-        else {
-            holder.brewWeb.setText(brews.get(position).getWebsite());
-        }
+//        if (brews.get(position).getWebsite() == null) {
+//            holder.brewWeb.setVisibility(View.GONE);
+//        }
+//        else {
+//            holder.brewWeb.setText(brews.get(position).getWebsite());
+//        }
 
     }
 

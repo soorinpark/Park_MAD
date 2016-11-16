@@ -3,6 +3,7 @@ package com.example.soorinpark.beerbelly.activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
@@ -29,7 +30,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.location.Address;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,8 +39,6 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.google.android.gms.analytics.internal.zzy.e;
 
 /**
  * Created by soorinpark on 11/10/16.
@@ -94,28 +92,49 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
             useCurrent = extras.getBoolean("current");
         }
 
-        Log.d("zcs", zipValue + "-" + cityValue + "-" + stateValue);
+        Log.d("vals", zipValue + "-" + cityValue + "-" + stateValue + "-" + useCurrent);
+
         final ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        if (!zipValue.matches("")) {
-            Call<BreweryList> call = apiService.getBrewZip(API_KEY, zipValue);
-            call.enqueue(new Callback<BreweryList>() {
-                @Override
-                public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
-                    brews = response.body().getDataList();
-                    getBeerInfo();
-                    addMarker();
-                    recyclerView.setAdapter(new BreweriesAdapter(brews, R.layout.brewery, getApplicationContext()));
-                    Log.d(TAG, "Number of breweries received: " + brews.size());
-                }
+        if (useCurrent == false) {
+            if (!zipValue.matches("")) {
+                Call<BreweryList> call = apiService.getBrewZip(API_KEY, zipValue);
+                call.enqueue(new Callback<BreweryList>() {
+                    @Override
+                    public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
+                        brews = response.body().getDataList();
+                        getBeerInfo();
+                        addMarker();
+                        recyclerView.setAdapter(new BreweriesAdapter(brews, R.layout.brewery, getApplicationContext()));
+                        Log.d(TAG, "Number of breweries received: " + brews.size());
+                    }
 
-                @Override
-                public void onFailure(Call<BreweryList> call, Throwable t) {
-                    Log.e(TAG, t.toString());
-                }
-            });
+                    @Override
+                    public void onFailure(Call<BreweryList> call, Throwable t) {
+                        Log.e(TAG, t.toString());
+                    }
+                });
+            }
+            else {
+                Call<BreweryList> call = apiService.getBrewCityState(API_KEY, cityValue, stateValue);
+                call.enqueue(new Callback<BreweryList>() {
+                    @Override
+                    public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
+                        brews = response.body().getDataList();
+                        getBeerInfo();
+                        addMarker();
+                        recyclerView.setAdapter(new BreweriesAdapter(brews, R.layout.brewery, getApplicationContext()));
+                        Log.d(TAG, "Number of breweries received: " + brews.size());
+                    }
+
+                    @Override
+                    public void onFailure(Call<BreweryList> call, Throwable t) {
+                        // Log error here since request failed
+                        Log.e(TAG, t.toString());
+                    }
+                });
+            }
         }
-        // if current location
         if (useCurrent == true) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 Log.d("req", "requesting");
@@ -129,7 +148,7 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
                     Log.d("lat", String.valueOf(lat));
                     Log.d("long", String.valueOf(lng));
                     LatLng latLng = new LatLng(lat, lng);
-                    geocoder = new Geocoder(this,Locale.getDefault());
+                    geocoder = new Geocoder(this, Locale.getDefault());
                     List<Address> addresses = null;
                     try {
                         addresses = geocoder.getFromLocation(lat, lng, 1);
@@ -138,9 +157,7 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                     Address returnedAddress = addresses.get(0);
                     String postalCode = returnedAddress.getPostalCode();
-                    //mMap.addMarker(new MarkerOptions().position(latLng).title("Current Location"));
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    
+
                     Call<BreweryList> call = apiService.getBrewZip(API_KEY, postalCode);
                     call.enqueue(new Callback<BreweryList>() {
                         @Override
@@ -161,30 +178,13 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
 
-        } else {
-            Call<BreweryList> call = apiService.getBrewCityState(API_KEY, cityValue, stateValue);
-            call.enqueue(new Callback<BreweryList>() {
-                @Override
-                public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
-                    brews = response.body().getDataList();
-                    getBeerInfo();
-                    addMarker();
-                    recyclerView.setAdapter(new BreweriesAdapter(brews, R.layout.brewery, getApplicationContext()));
-                    Log.d(TAG, "Number of breweries received: " + brews.size());
-                }
-
-                @Override
-                public void onFailure(Call<BreweryList> call, Throwable t) {
-                    // Log error here since request failed
-                    Log.e(TAG, t.toString());
-                }
-            });
         }
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        // temp location
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
@@ -199,7 +199,7 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
             Double lng = brews.get(i).getLongitude();
             LatLng latlong = new LatLng(lat, lng);
             builder.include(latlong);
-            mMap.addMarker(new MarkerOptions().position(latlong).title(brews.get(i).getName()));
+            mMap.addMarker(new MarkerOptions().position(latlong).title(brews.get(i).getBrewery().getName()));
 
         }
         LatLngBounds bounds = builder.build();
