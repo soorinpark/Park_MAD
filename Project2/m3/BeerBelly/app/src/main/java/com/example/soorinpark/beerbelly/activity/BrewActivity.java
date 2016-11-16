@@ -3,9 +3,8 @@ package com.example.soorinpark.beerbelly.activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -23,7 +22,6 @@ import com.example.soorinpark.beerbelly.model.BreweryList;
 import com.example.soorinpark.beerbelly.rest.ApiClient;
 import com.example.soorinpark.beerbelly.rest.ApiInterface;
 import com.example.soorinpark.beerbelly.ui.DividerItemDecoration;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,13 +29,18 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import android.location.Address;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.google.android.gms.analytics.internal.zzy.e;
 
 /**
  * Created by soorinpark on 11/10/16.
@@ -56,22 +59,16 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
     private RecyclerView recyclerView;
 
     private GoogleMap mMap;
-    private GoogleApiClient mGoogleApiClient;
     private SupportMapFragment mapFragment;
-    private LocationListener locationListener;
     private static final int REQUEST_CODE_LOCATION = 2;
-    private String provider;
-    private Criteria criteria;
-    private String permission = Manifest.permission.ACCESS_FINE_LOCATION;
-
     private LocationManager locationManager;
     private Location location;
-
-
 
     private Double lat;
     private Double lng;
 
+    private Geocoder geocoder;
+    private List<Address> addresses;
 
     private List<Brewery> brews;
     private List<List<Beer>> beers = new ArrayList<>();
@@ -120,7 +117,49 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
         }
         // if current location
         if (useCurrent == true) {
-            Log.d(":)", "??");
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Log.d("req", "requesting");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION);
+                return;
+            } else {
+                location = getLastKnownLocation();
+                if (location != null) {
+                    lat = location.getLatitude();
+                    lng = location.getLongitude();
+                    Log.d("lat", String.valueOf(lat));
+                    Log.d("long", String.valueOf(lng));
+                    LatLng latLng = new LatLng(lat, lng);
+                    geocoder = new Geocoder(this,Locale.getDefault());
+                    List<Address> addresses = null;
+                    try {
+                        addresses = geocoder.getFromLocation(lat, lng, 1);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    Address returnedAddress = addresses.get(0);
+                    String postalCode = returnedAddress.getPostalCode();
+                    //mMap.addMarker(new MarkerOptions().position(latLng).title("Current Location"));
+                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    
+                    Call<BreweryList> call = apiService.getBrewZip(API_KEY, postalCode);
+                    call.enqueue(new Callback<BreweryList>() {
+                        @Override
+                        public void onResponse(Call<BreweryList> call, Response<BreweryList> response) {
+                            brews = response.body().getDataList();
+                            getBeerInfo();
+                            addMarker();
+                            recyclerView.setAdapter(new BreweriesAdapter(brews, R.layout.brewery, getApplicationContext()));
+                            Log.d(TAG, "Number of breweries received: " + brews.size());
+                        }
+
+                        @Override
+                        public void onFailure(Call<BreweryList> call, Throwable t) {
+                            // Log error here since request failed
+                            Log.e(TAG, t.toString());
+                        }
+                    });
+                }
+            }
 
         } else {
             Call<BreweryList> call = apiService.getBrewCityState(API_KEY, cityValue, stateValue);
@@ -146,34 +185,10 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (useCurrent == true) {
-            Log.d("current", "current");
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                Log.d("req", "requesting");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION);
-                return;
-            } else {
-                location = getLastKnownLocation();
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-                //locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                //location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                Log.d("??", "hm");
-                if (location != null) {
-                    lat = location.getLatitude();
-                    lng = location.getLongitude();
-                    Log.d("lat", String.valueOf(lat));
-                    Log.d("long", String.valueOf(lng));
-                    LatLng latLng = new LatLng(lat, lng);
-                    mMap.addMarker(new MarkerOptions().position(latLng).title("Current Location"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                }
-            }
-        }
-        else{
-            LatLng sydney = new LatLng(-34, 151);
-            mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        }
     }
 
     public void addMarker() {

@@ -21,6 +21,9 @@ public interface ApiInterface {
     Call<BreweryList> getBrewZip(@Query("key") String apiKey, @Query("postalCode") String zipCode);
 
     @GET("locations")
+    Call<BreweryList> getBrewLongLat(@Query("key") String apiKey, @Query("latitude") String latitude, @Query("longitude") String longitude);
+
+    @GET("locations")
     Call<BreweryList> getBrewCityState(@Query("key") String apiKey, @Query("locality") String city, @Query("region") String state);
 
     @GET("brewery/{breweryId}/beers")
