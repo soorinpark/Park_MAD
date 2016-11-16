@@ -72,7 +72,6 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
     private Double lng;
 
     private Geocoder geocoder;
-    private List<Address> addresses;
 
     private List<Brewery> brews;
     private List<List<Beer>> beers = new ArrayList<>();
@@ -200,7 +199,7 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
         LatLngBounds bounds = builder.build();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 200));
     }
 
     public void getBeerInfo() {
@@ -208,16 +207,6 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
         for (int i = 0; i < brews.size(); i++) {
             String brewId = brews.get(i).getBreweryId();
             Call <BeerList> call = apiService.getBeerFromBrew(brewId, API_KEY);
-//            final int finalI = i;
-//            List<Beer> beerTemp = null;
-//            try {
-//                beerTemp = call.execute().body().getBeerList();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            Log.d("beer", beerTemp.get(0).getBeerName());
-
-
             call.enqueue(new Callback<BeerList>() {
                 @Override
                 public void onResponse(Call<BeerList> call, Response<BeerList> response) {
@@ -232,26 +221,6 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
             });
         }
     }
-
-    /*
-    public void getBeerData() {
-        String breweryId = brews.get(position).getBreweryId();
-        Call<BeerList> call = apiService.getBeerFromBrew(breweryId, API_KEY);
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        try {
-            Response<BeerList> response = call.execute();
-            beers = response.body().getBeerList();
-            //Log.d("beers", beers.get(0).getBeerName());
-            //beerList.add(beers);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    */
 
     private Location getLastKnownLocation() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

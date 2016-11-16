@@ -8,7 +8,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.StrictMode;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,6 +110,8 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
                 holder.beerIcon.setImageResource(R.drawable.no_beer);
                 for (int i=0; i < beers.size(); i++) {
                     if (beers.get(i).getBeerStyleId().matches(beerStyleId)) {
+                        //TODO
+                        // make page changes so it's not loading so many on one page
                         holder.beerIcon.setImageResource(R.drawable.yes_beer);
                     }
 
