@@ -39,10 +39,12 @@ public class MainActivity extends AppCompatActivity {
     private EditText city;
     private EditText zipcode;
     private Spinner stateSpinner;
+    private Spinner styleSpinner;
 
     private String cityText;
     private String zipcodeText;
     private String stateText;
+    private String beerStyle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,10 +225,10 @@ public class MainActivity extends AppCompatActivity {
                 "Wild Beer"
 
         };
-        Spinner categorySpinner = (Spinner) findViewById(R.id.beerCategory);
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this,
+        styleSpinner = (Spinner) findViewById(R.id.beerCategory);
+        ArrayAdapter<String> styleAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, styleArray);
-        categorySpinner.setAdapter(categoryAdapter);
+        styleSpinner.setAdapter(styleAdapter);
 
         this.stateArray = new String[]{
                 "",
@@ -319,6 +321,7 @@ public class MainActivity extends AppCompatActivity {
         cityText = city.getText().toString();
         zipcodeText = zipcode.getText().toString();
         stateText = stateSpinner.getSelectedItem().toString();
+        beerStyle = String.valueOf(styleSpinner.getSelectedItemPosition());
 
         if (cityText.matches("") && stateText.matches("") && zipcodeText.matches("")) {
             currentLocation = true;
@@ -333,6 +336,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("city", cityText);
         intent.putExtra("state", stateText);
         intent.putExtra("current", currentLocation);
+        intent.putExtra("beerStyle", beerStyle);
         startActivity(intent);
     }
 

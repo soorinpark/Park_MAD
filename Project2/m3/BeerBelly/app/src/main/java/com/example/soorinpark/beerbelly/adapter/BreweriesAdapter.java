@@ -6,23 +6,42 @@ package com.example.soorinpark.beerbelly.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.StrictMode;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.soorinpark.beerbelly.R;
+import com.example.soorinpark.beerbelly.model.Beer;
+import com.example.soorinpark.beerbelly.model.BeerList;
 import com.example.soorinpark.beerbelly.model.Brewery;
+import com.example.soorinpark.beerbelly.rest.ApiInterface;
 
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.BreweryViewHolder> {
 
-    private List<Brewery> brews;
+    private final static String API_KEY = "546e79849610632a56e3ea49a776f1ba";
+    //private final static String API_KEY = "a4142602a510290da5c09e9748f79216";
+
+
+    private String beerStyleId;
+    private ApiInterface apiService;
     private int rowLayout;
     private Context context;
+
+    private List<Brewery> brews;
+
+
 
     public static class BreweryViewHolder extends RecyclerView.ViewHolder {
 
@@ -32,6 +51,8 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
         TextView brewCityStateZip;
         TextView brewPhone;
         TextView brewWeb;
+        ImageView beerIcon;
+
 
         public BreweryViewHolder(View v) {
             super(v);
@@ -41,6 +62,7 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
             brewCityStateZip = (TextView) v.findViewById(R.id.brewery_city_state_zipcode);
             brewPhone = (TextView) v.findViewById(R.id.brewery_phone);
             brewWeb = (TextView) v.findViewById(R.id.brewery_web);
+            beerIcon = (ImageView) v.findViewById(R.id.beercanIcon);
 
             Typeface headFont = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Bungee-Regular.ttf");
             Typeface bodyFont = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
@@ -52,8 +74,10 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
         }
     }
 
-    public BreweriesAdapter(List<Brewery> brews, int rowLayout, Context context) {
+    public BreweriesAdapter(List<Brewery> brews, String beerStyleId, ApiInterface apiService, int rowLayout, Context context) {
         this.brews = brews;
+        this.beerStyleId = beerStyleId;
+        this.apiService = apiService;
         this.rowLayout = rowLayout;
         this.context = context;
     }
@@ -68,6 +92,37 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
 
     @Override
     public void onBindViewHolder(BreweryViewHolder holder, final int position) {
+
+
+        String breweryId = brews.get(position).getBreweryId();
+        Call<BeerList> call = apiService.getBeerFromBrew(breweryId, API_KEY);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        try {
+            Response<BeerList> response = call.execute();
+            List<Beer>  beers = response.body().getBeerList();
+            if(beers == null) {
+                holder.beerIcon.setImageResource(R.drawable.no_beer);
+            }
+            else {
+                //List<Beer> beerList = beers.get(position);
+                holder.beerIcon.setImageResource(R.drawable.no_beer);
+                for (int i=0; i < beers.size(); i++) {
+                    if (beers.get(i).getBeerStyleId().matches(beerStyleId)) {
+                        holder.beerIcon.setImageResource(R.drawable.yes_beer);
+                    }
+
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
 
         Brewery brewObj = brews.get(position).getBrewery();
 
@@ -96,13 +151,6 @@ public class BreweriesAdapter extends RecyclerView.Adapter<BreweriesAdapter.Brew
         else {
             holder.brewPhone.setText(brews.get(position).getPhone());
         }
-
-//        if (brews.get(position).getWebsite() == null) {
-//            holder.brewWeb.setVisibility(View.GONE);
-//        }
-//        else {
-//            holder.brewWeb.setText(brews.get(position).getWebsite());
-//        }
 
     }
 
