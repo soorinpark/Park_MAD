@@ -1,7 +1,6 @@
 package com.soorinpark.soorinpark.beerbelly.activity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,6 +9,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +18,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.soorinpark.soorinpark.beerbelly.R;
 import com.soorinpark.soorinpark.beerbelly.adapter.BreweriesAdapter;
 import com.soorinpark.soorinpark.beerbelly.model.Beer;
@@ -26,13 +37,6 @@ import com.soorinpark.soorinpark.beerbelly.model.BreweryList;
 import com.soorinpark.soorinpark.beerbelly.rest.ApiClient;
 import com.soorinpark.soorinpark.beerbelly.rest.ApiInterface;
 import com.soorinpark.soorinpark.beerbelly.ui.DividerItemDecoration;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,8 +54,8 @@ import retrofit2.Response;
 public class BrewActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    public final static String API_KEY = "fd9b5015d33721dd7bf301ea019b2fb9"; // deploy API key
-    //public final static String API_KEY = "607feb4f9ed4b2f7c22de45803eb238d"; // dev API key
+    //public final static String API_KEY = "fd9b5015d33721dd7bf301ea019b2fb9"; // deploy API key
+    public final static String API_KEY = "607feb4f9ed4b2f7c22de45803eb238d"; // dev API key
 
     private String zipValue = null;
     private String cityValue = null;
@@ -64,13 +68,15 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
     private static final int REQUEST_CODE_LOCATION = 2;
-    private LocationManager locationManager;
+//    private LocationManager locationManager;
     private Location location;
 
     private Double lat;
     private Double lng;
 
     private Geocoder geocoder;
+
+    GoogleApiClient mGoogleApiClient;
 
     private List<Brewery> brews;
     private List<List<Beer>> beers = new ArrayList<>();
@@ -172,11 +178,19 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
         }
         if (useCurrent == true) {
 
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION);
+
+            }
+            Log.d("use", "use");
+
             location = getLastKnownLocation();
+            Log.d("loc", String.valueOf(location));
             if (location != null) {
                 lat = location.getLatitude();
                 lng = location.getLongitude();
                 LatLng latLng = new LatLng(lat, lng);
+                Log.d("latlong", lat + "-" + lng);
                 geocoder = new Geocoder(this, Locale.getDefault());
                 List<Address> addresses = null;
                 try {
@@ -249,6 +263,7 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.setMyLocationEnabled(true);
 
     }
 
@@ -288,20 +303,21 @@ public class BrewActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private Location getLastKnownLocation() {
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager)getApplicationContext().getSystemService(LOCATION_SERVICE);
         List<String> providers = locationManager.getProviders(true);
         Location bestLocation = null;
         for (String provider : providers) {
             Location l = locationManager.getLastKnownLocation(provider);
+            Log.d("loc?", String.valueOf(l));
             if (l == null) {
                 continue;
             }
             if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
-                // Found best last known location: %s", l);
                 bestLocation = l;
             }
         }
         return bestLocation;
     }
+
 }
 
