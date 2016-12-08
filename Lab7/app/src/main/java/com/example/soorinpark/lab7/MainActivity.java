@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     ageIcon.setImageResource(R.drawable.child);
                 } else if (age > 8 && age <= 18) {
                     ageIcon.setImageResource(R.drawable.teen);
-                } else if (age > 18 && age <= 30) {
+                } else if (age > 18 && age <= 30)
                     ageIcon.setImageResource(R.drawable.young_adult);
                 } else if (age > 30 && age <= 45) {
                     ageIcon.setImageResource(R.drawable.adult);

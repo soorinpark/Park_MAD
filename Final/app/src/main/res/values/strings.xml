@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Final</string>
+    <string name="title">I Scream For Ice Cream</string>
+
+    <string name="dairy">Dairy-Free</string>
+
+    <string name="cup">Cup</string>
+    <string name="cone">Cone</string>
+
+    <string name="icecream">Ice Cream</string>
+    <string name="froyo">Frozen Yogurt</string>
+    <string name="gelato">Gelato</string>
+
+
+    <string name="sprinkles">Sprinkles</string>
+    <string name="hotfudge">Hot Fudge</string>
+    <string name="nuts">Nuts</string>
+
+    <string name="treatme">Treat Me</string>
+    <string name="findtreat">Find Treat</string>
+
+    <string name="glaicer">Glacier</string>
+    <string name="sweetcow">Sweet Cow</string>
+    <string name="fiordilatte">Fior di Latte</string>
+
+    <string name="glacierurl">http://www.glaciericecream.com/</string>
+    <string name="sweetcowurl">http://www.sweetcowicecream.com/</string>
+    <string name="fiorurl">http://fiordilattegelato.com/</string>
+
+</resources>
